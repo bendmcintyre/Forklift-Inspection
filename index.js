@@ -1,2 +1,2 @@
-// Hello Ben Newman
+// Hello Ben McIntyre
 // added node, react, react-dom
