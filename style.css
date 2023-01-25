@@ -7,6 +7,9 @@ body {
     align-items: center;
 }
 
+* {
+    letter-spacing: 1.5px;
+}
 
 h1 {
     font-size: 36px;
@@ -96,7 +99,37 @@ nav a button.active {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 20px;
+}
+
+#inspect-button {
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+    border: 1px;
+    border-radius: 15px;
+    padding: 20px 20px;
+    font-size: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgb(0, 202, 0);
+}
+
+#inspect-button:hover {
+    background-color: rgb(0, 202, 0);
+    color: white;
+    border-color: #1976D2;
+    cursor: pointer;
+}
+
+#social-media-buttons {
+    border-color: #1976D2;
+}
+
+#contact-info {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    color: white;
 }
 
 #instagram {
@@ -111,15 +144,27 @@ nav a button.active {
     color: #00acee;
 }
 
-#social-media-buttons {
-    border-color: #1976D2;
-}
-
-#contact-info {
+#safety-rules {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    list-style: none;
+    padding-top: 50px;
+    padding-bottom: 120px;
+    padding: auto;
+    padding-left: 0px;
+    padding-right: 0px;
     text-align: center;
+    margin: 0 auto;
     width: 100%;
+    max-width: 600px;
 }
 
+#safety-rules li {
+    padding: 20px 10px;
+}
+
+#safety-rules li:last-child {
+    border-bottom: none;
+}
 
 @media only screen and (min-width: 768px) {
     h1 {
