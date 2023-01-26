@@ -113,6 +113,7 @@ nav a button.active {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: rgb(0, 202, 0);
+    margin-top: 150px;
 }
 
 #inspect-button button {
@@ -165,6 +166,12 @@ nav a button.active {
     width: 100%;
     padding: 10px;
     color: white;
+}
+
+/* FORKLIFT LOGO ON INSPECT PAGE STLYING BELOW */
+
+#forklift-logo {
+    margin-top: 150px;
 }
 
 /* MEDIA QUERY FOR SCREEN ADJUSTMENTS BETWEEN MOBILE AND DESKTOP BELOW */
