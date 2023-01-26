@@ -23,14 +23,6 @@ h1 {
     align-items: center;
 }
 
-/* INSPECT PAGE H1 STYLING BELOW */
-
-#inspect-title-header {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
 /* NAVBAR & SOCIAL MEDIA BUTTONS STYLING BELOW */
 
 nav {
