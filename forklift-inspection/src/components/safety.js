@@ -12,7 +12,7 @@ export class Safety extends React.Component {
             <a href="safety.html">
               <button id="safety-page">Safety</button>
             </a>
-            <a class="active" href="contact.html">
+            <a className="active" href="contact.html">
               <button id="contact-page">Contact</button>
             </a>
           </nav>

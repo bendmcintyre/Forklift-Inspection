@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import forkliftLogo from "../images/forklift-logo.png";
 
 export class Inspect extends React.Component {
   render() {
@@ -6,13 +7,13 @@ export class Inspect extends React.Component {
       <div>
         <div id="navbar-container">
           <nav>
-            <a class="active" href="inspect.html">
+            <a class="active">
               <button id="inspect-page">Inspect</button>
             </a>
-            <a href="safety.html">
+            <a>
               <button id="safety-page">Safety</button>
             </a>
-            <a href="contact.html">
+            <a>
               <button id="contact-page">Contact</button>
             </a>
           </nav>
@@ -21,7 +22,7 @@ export class Inspect extends React.Component {
           <button id="inspect-button">INSPECT</button>
         </div>
         <div id="forklift-logo">
-          <img src="./images/forklift-logo.png" />
+          <img src={forkliftLogo} alt="Forklift logo" />
         </div>
       </div>
     );
