@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import forkliftLogo from "../images/forklift-logo.png";
 
 export class Contact extends React.Component {
   render() {
     return (
       <div>
         <div id="contact-info">
+          <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />
           <a
             className="contact-info"
             id="contact-email"
