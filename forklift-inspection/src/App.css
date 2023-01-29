@@ -4,6 +4,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 }
 
 * {
@@ -23,7 +24,7 @@ h1 {
   align-items: center;
 }
 
-/* NAVBAR & SOCIAL MEDIA BUTTONS STYLING BELOW */
+/* NAVBAR STYLING BELOW */
 
 nav {
   display: flex;
@@ -32,6 +33,8 @@ nav {
   flex-wrap: nowrap;
   align-items: center;
   width: 100%;
+  position: fixed;
+  top: 0;
 }
 
 nav a {
@@ -72,11 +75,13 @@ nav a button.active {
   width: 100%;
 }
 
+/* SOCIAL MEDIA BUTTON STYLING BELOW */
+
 #social-media-buttons {
   border-color: #1976D2;
 }
 
-.instagram {
+#instagram {
   color: #3f729b;
 }
 
@@ -84,7 +89,7 @@ nav a button.active {
   background-color: #3f729b;
 }
 
-.linked-in {
+#linked-in {
   color: #0072b1;
 }
 
@@ -92,7 +97,7 @@ nav a button.active {
   background-color: #0072b1;
 }
 
-.twitter {
+#twitter {
   color: #1DA1F2;
 }
 
@@ -100,9 +105,9 @@ nav a button.active {
   background-color: #1DA1F2;
 }
 
-/* LARGE GREEN INSPECT BUTTON STYLING BELOW */
+/* LARGE GREEN START BUTTON STYLING BELOW */
 
-#inspect-button {
+#start-button {
   transition: all 0.2s ease-in-out;
   background-color: white;
   border: 1px;
@@ -113,10 +118,15 @@ nav a button.active {
   text-transform: uppercase;
   letter-spacing: 1px;
   color: rgb(0, 202, 0);
-  margin-top: 150px;
+  margin: 0px;
+  position: absolute;
+  top: 100px;
+  text-align: center;
+  display: inline-block;
+  margin: auto;
 }
 
-#inspect-button button {
+#start-button button {
   font-size: 28px;
   padding: 20px 40px;
   position: absolute;
@@ -128,7 +138,7 @@ nav a button.active {
   border-color: #1976D2;
 }
 
-#inspect-button:hover {
+#start-button:hover {
   background-color: rgb(0, 202, 0);
   color: white;
   border-color: #1976D2;
@@ -159,7 +169,7 @@ nav a button.active {
   border-bottom: none;
 }
 
-/* CONTACT NUMBER AND EMAIL ADDRESS STYLING BELOW */
+/* CONTACT PAGE STYLING BELOW */
 
 #contact-info {
   text-align: center;
@@ -168,10 +178,26 @@ nav a button.active {
   color: white;
 }
 
+.contact-info {
+  margin: 40px 20px;
+}
+
+#contact-nav {
+  margin-top: 100px;
+}
+
 /* FORKLIFT LOGO ON INSPECT PAGE STLYING BELOW */
 
 #forklift-logo {
   margin-top: 150px;
+}
+
+#inspect-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
 }
 
 /* MEDIA QUERY FOR SCREEN ADJUSTMENTS BETWEEN MOBILE AND DESKTOP BELOW */

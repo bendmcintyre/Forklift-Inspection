@@ -4,19 +4,6 @@ export class Safety extends React.Component {
   render() {
     return (
       <div>
-        <div id="navbar-container">
-          <nav>
-            <a href="inspect.html">
-              <button id="inspect-page">Inspect</button>
-            </a>
-            <a href="safety.html">
-              <button id="safety-page">Safety</button>
-            </a>
-            <a className="active" href="contact.html">
-              <button id="contact-page">Contact</button>
-            </a>
-          </nav>
-        </div>
         <h1 id="safety-h1">OPERATING RULES</h1>
         <ol id="safety-rules">
           <li>
