@@ -20,17 +20,17 @@ export class Contact extends React.Component {
         <div id="social-media-butttons">
           <nav id="contact-nav">
             <a href="https://www.instagram.com">
-              <button id="instagram" className="contact-info">
+              <button id="instagram" className="contact-info instagram">
                 Instagram
               </button>
             </a>
             <a href="https://twitter.com">
-              <button id="twitter" className="contact-info">
+              <button id="twitter" className="contact-info twitter">
                 Twitter
               </button>
             </a>
             <a href="https://www.linkedin.com">
-              <button id="linked-in" className="contact-info">
+              <button id="linked-in" className="contact-info linked-in">
                 LinkedIn
               </button>
             </a>
