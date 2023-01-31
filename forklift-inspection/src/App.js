@@ -17,6 +17,7 @@ function App() {
       <div className="react-view my-4">
         <Routes>
           <Route path="/daily-checklist" element={<DailyChecklist />} />
+          <Route path="/inspect" element={<Inspect />} />
           <Route path="/safety" element={<Safety />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
