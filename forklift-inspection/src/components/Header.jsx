@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
-import { Container, Nav, Navbar, NavDropdown} from 'react-bootstrap'; // https://react-bootstrap.github.io/components/navbar/
+import { Container, Nav, Navbar} from 'react-bootstrap'; // https://react-bootstrap.github.io/components/navbar/
 
 export default function Header(){
     return(
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#">Forklift Inspection</Navbar.Brand>
+                <Navbar.Brand href="/daily-checklist">Forklift Inspection</Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
