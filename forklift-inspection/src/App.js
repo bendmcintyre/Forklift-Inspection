@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Header />
 
-      <div className="react-view">
+      <div className="react-view my-4">
         <Routes>
           <Route path="/daily-checklist" element={<DailyChecklist />} />
           <Route path="/safety" element={<Safety />} />
