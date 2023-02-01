@@ -1,7 +1,7 @@
 import "./App.css";
-import { Safety } from "./components/safety.js";
-import { Inspect } from "./components/inspect.js";
-import { Contact } from "./components/contact.js";
+import { Safety } from "./components/safety.jsx";
+import { Inspect } from "./components/inspect.jsx";
+import { Contact } from "./components/contact.jsx";
 
 import React, { useState } from "react";
 
