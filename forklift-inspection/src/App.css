@@ -1,12 +1,12 @@
 /* Color Palette */
 :root {
-  /* --primary-color: #1976D2;
+  --primary-color: #1976D2;
   --accent-color-1: #42A5F5;
   --accent-color-2: #2196F3;
   --accent-color-3: #1E88E5;
   --accent-color-4: #1976D2;
   --accent-color-5: #64B5F6;
-  --text-color: #000000; */
+  --text-color: #000000;
   --background-color: radial-gradient(circle, var(--accent-color-5), var(--accent-color-1), var(--accent-color-2), var(--accent-color-3), var(--accent-color-4));
   --instagram-color: #3f729b;
   --linkedin-color: #0072b1;
@@ -15,12 +15,12 @@
 }
 
 body {
-  /* background: var(--background-color); */
-  /* display: flex;
+  background: var(--background-color);
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 50px; */
+  margin-top: 50px;
 }
 
 * {
@@ -29,7 +29,7 @@ body {
 }
 
 h1 {
-  /* font-size: 36px;
+  font-size: 36px;
   font-weight: 600;
   text-align: center;
   margin: 40px 0;
@@ -37,38 +37,26 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 }
 
 /* NAVBAR STYLING BELOW */
-header#navbar-container {
-  display: flex;
-  justify-content: center;
-}
 
-header nav {
-  /* display: flex;
+nav {
+  display: flex;
   justify-content: center;
   margin: 20px 0;
-  align-items: center;
   flex-wrap: nowrap;
+  align-items: center;
   width: 100%;
   position: fixed;
-  top: 0; */
+  top: 0;
 }
 
-header nav ul{
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px; /* https://developer.mozilla.org/en-US/docs/Web/CSS/gap */
-}
-
-header nav ul li a {
+nav a {
   text-decoration: none;
-  /* margin: 0 10px;
-  width: 25%; */
+  margin: 0 10px;
+  width: 25%;
 }
 
 nav a button {
@@ -89,6 +77,12 @@ nav a button:hover {
   color: white;
   border-color: var(--accent-color-4);
   cursor: pointer;
+}
+
+#navbar-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 /* SOCIAL MEDIA BUTTON STYLING BELOW */
