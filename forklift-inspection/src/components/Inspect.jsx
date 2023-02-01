@@ -1,19 +1,21 @@
 import React, { useState } from "react";
+import forkliftLogo from "../images/forklift-logo.png";
 
-export default function Inspect() {
-  // const [currentPage, setCurrentPage] = useState("inspect");
+export function Inspect() {
+  const [currentPage, setCurrentPage] = useState("inspect");
 
   return (
-    // <div>
-    //   {currentPage === "inspect" && (
-    //     <div id="inspect-div">
-    //       <button id="start-button">START</button>
-    //     </div>
-    //   )}
-    // </div>
-
-    <div id="inspect-div">
-      <button id="start-button">START</button>
+    <div>
+      {currentPage === "inspect" && (
+        <div id="inspect-div">
+          <div>
+            <button id="start-button">START</button>
+          </div>
+          <div>
+            <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
