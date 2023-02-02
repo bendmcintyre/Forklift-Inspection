@@ -6,9 +6,7 @@ const Inspect = () => {
   return (
     <div id="inspect-div">
       <div>
-        <Link to="/inspect">
-          <button id="start-button">START</button>
-        </Link>
+        <Link to="/inspect-form" id="start-button">START</Link>
       </div>
       <div>
         <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />

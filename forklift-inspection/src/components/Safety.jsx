@@ -1,8 +1,7 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
 
-export const Safety = () => (
-  <Route path="/safety">
+function Safety() {
+  return (
     <div>
       <h1 id="safety-h1">OPERATING RULES</h1>
       <ol id="safety-rules">
@@ -42,5 +41,7 @@ export const Safety = () => (
         </li>
       </ol>
     </div>
-  </Route>
-);
+  )
+};
+
+export default Safety

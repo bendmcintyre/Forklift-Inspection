@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import ReactDOM from "react-dom/client";
-import '../src/form.css';
-import PassFail from '../src/components/passfail.js';
+import '../form.css';
+import PassFail from './PassFail';
 
-function MyForm() {
+function InspectForm() {
   const [inputs, setInputs] = useState({});
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs(values => ({...values, [name]: value}))
   }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(inputs);
@@ -231,6 +232,5 @@ function MyForm() {
 </form>
   )
 }
-console.log()
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<MyForm />);
+
+export default InspectForm
