@@ -23,20 +23,23 @@ export default function Contact() {
         </div>
         <div id="social-media-butttons">
           <nav id="contact-nav">
-            <a href="https://www.instagram.com">
-              <button id="instagram" className="contact-info instagram">
-                Instagram
-              </button>
+            <a href="https://www.instagram.com" target="_blank" 
+              rel="noopener noreferrer" /* based on react's suggestion */
+              id="instagram"  
+              className="contact-info instagram">
+              Instagram
             </a>
-            <a href="https://twitter.com">
-              <button id="twitter" className="contact-info twitter">
-                Twitter
-              </button>
+            <a href="https://twitter.com" target="_blank" 
+              id="twitter" 
+              rel="noopener noreferrer" /* based on react's suggestion */
+              className="contact-info twitter">
+              Twitter
             </a>
-            <a href="https://www.linkedin.com">
-              <button id="linked-in" className="contact-info linked-in">
-                LinkedIn
-              </button>
+            <a href="https://www.linkedin.com" target="_blank" 
+              id="linked-in" 
+              rel="noopener noreferrer" /* based on react's suggestion */
+              className="contact-info linked-in">
+              LinkedIn
             </a>
           </nav>
         </div>
