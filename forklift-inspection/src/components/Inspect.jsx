@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import forkliftLogo from "../images/forklift-logo.png";
 
-export function Inspect() {
+const Inspect = () => {
   return (
     <div id="inspect-div">
       <div>
-        <Link to="#">
+        <Link to="/inspect">
           <button id="start-button">START</button>
         </Link>
       </div>
@@ -15,5 +15,8 @@ export function Inspect() {
       </div>
     </div>
   );
-}
+};
+
+export default Inspect;
+
 
