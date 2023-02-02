@@ -134,6 +134,7 @@ nav a button:hover {
   text-align: center;
   display: inline-block;
   margin: auto;
+  text-decoration: none;;
 }
 
 #start-button button {
