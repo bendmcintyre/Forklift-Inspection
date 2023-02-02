@@ -20,16 +20,21 @@
 }
 
 .info {
-        display: inline-grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 1fr;
-        grid-column-gap: 25px;
-        grid-row-gap: 50px;
-        padding: 20px;
+  /* display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 25px;
+  grid-row-gap: 50px;
+  padding: 20px; */
+  margin-bottom: 8px;
         
 }
 
-.test01{
+input, select{
+  font-size: 16px;
+}
+
+/* .test01{
     align-items: center;
     display: inline-grid;
     grid-template-columns: 250px 1fr;
@@ -37,9 +42,7 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     padding: 20px;
-    
-    
-}
+} */
 
 .test02{
     align-items: center;
@@ -63,9 +66,37 @@ cursor: pointer;
 
 }
 
+.form-group{
+  margin: auto 5%;
+}
+
+.col, .col-2,  .col-3{
+  display: grid;
+  column-gap: 24px;
+  row-gap: 24px;
+  margin-bottom: 24px;
+}
+
+.col-2{
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.col-3{
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.input-group{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .input {
-  background-color: var(--accent-color-5);
-  cursor: pointer;
+  /* background-color: var(--accent-color-5); */
+  /* cursor: pointer; */
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  border-radius: 4px;
 }
 
 /* button begin */
