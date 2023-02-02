@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("inspect");
+  const [currentPage, setCurrentPage] = Router("inspect");
 
   return (
     <Router>
