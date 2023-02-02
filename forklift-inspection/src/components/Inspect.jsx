@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import forkliftLogo from "../images/forklift-logo.png";
 
 export function Inspect() {
-  const [currentPage, setCurrentPage] = useState("inspect");
-
   return (
-    <div>
-      {currentPage === "inspect" && (
-        <div id="inspect-div">
-          <div>
-            <button id="start-button">START</button>
-          </div>
-          <div>
-            <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />
-          </div>
-        </div>
-      )}
+    <div id="inspect-div">
+      <div>
+        <Link to="#">
+          <button id="start-button">START</button>
+        </Link>
+      </div>
+      <div>
+        <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />
+      </div>
     </div>
   );
 }
+
