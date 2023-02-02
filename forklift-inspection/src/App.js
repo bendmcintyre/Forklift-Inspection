@@ -10,16 +10,22 @@ function App() {
       <Router>
         <div id="navbar-container">
           <nav>
-            <Link to="/Inspect">INSPECT</Link>
-            <Link to="/Contact">CONTACT</Link>
-            <Link to="/Safety">SAFETY</Link>
+            <Link to="./components/Inspect.jsx">INSPECT</Link>
+            <Link to="./components/Contact.jsx">CONTACT</Link>
+            <Link to="./components/Safety.jsx">SAFETY</Link>
           </nav>
         </div>
         <div className="react-view my-4">
           <Routes>
-            <Route path="/Inspect" element={<Inspect />}></Route>
-            <Route path="/Contact" element={<Contact />}></Route>
-            <Route path="/Safety" element={<Safety />}></Route>
+            <Route
+              path="./components/Inspect.jsx"
+              element={<Inspect />}
+            ></Route>
+            <Route
+              path="./components/Contact.jsx"
+              element={<Contact />}
+            ></Route>
+            <Route path="./components/Safety.jsx" element={<Safety />}></Route>
           </Routes>
         </div>
       </Router>
