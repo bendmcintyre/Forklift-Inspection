@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../form.css';
+import '../App.css';
 import PassFail from './PassFail';
 
 function InspectForm() {
@@ -24,7 +24,7 @@ function InspectForm() {
       <div className="col-2">
         <div className="input-group">
           <label className='info' htmlFor='name'>Name:</label>
-          <input className='input'
+          <input required className='input'
             type="text" 
             name="name" 
             value={inputs.name || ""} 
@@ -34,7 +34,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='date'>Date:</label>
-          <input className='input'
+          <input required className='input'
             type="date" 
             name="date" 
             value={inputs.date || ""} 
@@ -46,7 +46,7 @@ function InspectForm() {
       <div className="col-2">
         <dvi className="input-group">
           <label className='info' htmlFor='lift'>Lift:</label>
-          <input className='input'
+          <input required className='input'
             type="text" 
             name="lift" 
             value={inputs.lift || ""} 
@@ -56,7 +56,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='hours'>Hours:</label>
-          <input className='input'
+          <input required className='input'
             type="numbers" 
             name="hours" 
             value={inputs.hours|| ""} 
@@ -69,7 +69,7 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='tires'>Tires:</label>
-          <select className='input'
+          <select required className='input'
             type="select" 
             name="tires" 
             value={inputs.tires|| PassFail} 
@@ -83,7 +83,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='horn'>Horn:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="horn" 
             value={inputs.horn|| ""} 
@@ -97,7 +97,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='battery'>Battery:</label>
-          <select  required className='input'
+          <select required className='input'
             type="text" 
             name="battery" 
             value={inputs.battery|| ""} 
@@ -113,7 +113,7 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='controls'>Controls:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="controls" 
             value={inputs.controls|| ""} 
@@ -127,7 +127,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='brakes'>Brakes/Brake Fluid:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="brakes" 
             value={inputs.brakes|| ""} 
@@ -141,7 +141,7 @@ function InspectForm() {
         
         <div className="input-group">
           <label className='info' htmlFor='steering'>Steering:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="steering" 
             value={inputs.steering|| ""} 
@@ -157,7 +157,7 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='hydraulic'>Hydraulics:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="hydraulic" 
             value={inputs.hydraulic|| ""} 
@@ -171,7 +171,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='hydraulic'>Overhead Guard:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="overhead" 
             value={inputs.overhead|| ""} 
@@ -185,7 +185,7 @@ function InspectForm() {
         
         <div className="input-group">
           <label className='info' htmlFor='charger'>Charger:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="charger" 
             value={inputs.charger|| ""} 
@@ -201,7 +201,7 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='fallarrest'>Seat Belt / Fall Arrest:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="fallarrest" 
             value={inputs.fallarrest|| ""} 
@@ -215,7 +215,7 @@ function InspectForm() {
 
         <div className="input-group">
           <label className='info' htmlFor='loadplate'>Is load plate displayed / free from damage?:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="loadplate" 
             value={inputs.loadplate|| ""} 
@@ -229,7 +229,7 @@ function InspectForm() {
         
         <div className="input-group">
           <label className='info' htmlFor='manual'>Is the operators manual present?:</label>
-          <select className='input'
+          <select required className='input'
             type="text" 
             name="manual" 
             value={inputs.manual|| ""} 
@@ -245,7 +245,7 @@ function InspectForm() {
       <div className="col">
           <div className="input-group">
             <label className='info' htmlFor='clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
-            <select className='input'
+            <select required className='input'
               type="text" 
               name="clean" 
               value={inputs.clean|| ""} 
@@ -255,6 +255,18 @@ function InspectForm() {
               <option value="Pass">Pass</option>
               <option value="Fail">Fail</option>
             </select>
+          </div>
+      </div>
+
+      <div className="col">
+          <div className="input-group">
+            <label className='info' htmlFor='clean'>If any deficiencies are present, describe below:</label>
+            <input  className='input'
+            type="text" 
+            name="deficiencies" 
+            value={inputs.deficiencies || ""} 
+            onChange={handleChange}
+          />
           </div>
       </div>
   
