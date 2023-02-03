@@ -5,7 +5,8 @@ export default function Header(){
         <div id="navbar-container">
           <nav>
             {/* For routing we need match the route name in Route path attribute */}
-            <Link to="/inspect">HOME</Link>
+            <Link to="/home">HOME</Link>
+            <Link to="/inspections">INSPECTIONS</Link>
             <Link to="/contact">CONTACT</Link>
             <Link to="/safety">SAFETY</Link>
           </nav>
