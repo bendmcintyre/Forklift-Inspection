@@ -1,6 +1,6 @@
 import React from "react";
 
-function Safety() {
+export default function Safety() {
   return (
     <div>
       <h1 id="safety-h1">OPERATING RULES</h1>
@@ -43,5 +43,3 @@ function Safety() {
     </div>
   )
 };
-
-export default Safety

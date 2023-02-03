@@ -88,12 +88,18 @@ nav a:hover {
 
 /* SOCIAL MEDIA BUTTON STYLING BELOW */
 
-#social-media-buttons {
-  border-color: var(--accent-color-4);
+#social-media-butttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .instagram {
   color: var(--instagram-color);
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 
 .instagram:hover {
@@ -102,6 +108,8 @@ nav a:hover {
 
 .linked-in {
   color: var(--linkedin-color);
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 
 .linked-in:hover {
@@ -110,10 +118,44 @@ nav a:hover {
 
 .twitter {
   color: var(--twitter-color);
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 
 .twitter:hover {
   background-color: var(--twitter-color);
+}
+
+/* CONTACT PAGE STYLING BELOW */
+
+#contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #007aff;
+}
+
+#contact-info a {
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+#contact-email {
+  font-size: 1em;
+}
+
+#contact-number {
+  font-size: 1.2em;
+}
+
+#forklift-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  margin: auto;
 }
 
 /* LARGE GREEN START BUTTON STYLING BELOW */
@@ -178,39 +220,12 @@ button {
   border-bottom: none;
 }
 
-/* CONTACT PAGE STYLING BELOW */
-
-#contact-info {
-  text-align: center;
-  width: 100%;
-  padding: 10px;
-  color: white;
-}
-
-.contact-info {
-  margin: 40px 20px;
-}
-
-#contact-nav {
-  margin-top: 100px;
-}
-
-/* FORKLIFT LOGO ON CONTACT PAGE STLYING BELOW */
-
-#forklift-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: block;
-  margin: auto;
-}
+/*               */
 
 .info {
   margin-bottom: 8px;
         
 }
-
-/*               */
 
 input, select{
   font-size: 16px;
@@ -269,31 +284,37 @@ input, select{
 /* FORM SUBMIT BUTTON STYLING BELOW */
 
 .button {
-  display: inline-grid;
-  padding: 10px 20px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: lightslategrey;
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  margin: 0 auto;
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+  border: 0;
   border-radius: 15px;
-  background-color:  var(--accent-color-1);
+  padding: 20px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--secondary-color);
+  text-decoration: none;
 }
-  
+
 .button:hover {
-  background: var(--background-color);
-}
-  
-.button:active {
-  background-color: var(--background-color);;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: transparent;
+  cursor: pointer;
 }
 
 /* MEDIA QUERY FOR SCREEN ADJUSTMENTS BETWEEN MOBILE AND DESKTOP BELOW */
+@media (max-width: 576px) {
+  #social-media-butttons {
+    flex-direction: column;
+  }
+}
 
 @media only screen and (min-width: 100px) {
   h1 {
