@@ -23,7 +23,7 @@ function InspectForm() {
       {/* Lift + Operator Info: */}
       <div className="col-2">
         <div className="input-group">
-          <label className='info' htmlFor='name'>Name</label>
+          <label className='info' htmlFor='name'>Name:</label>
           <input className='input'
             type="text" 
             name="name" 
@@ -33,7 +33,7 @@ function InspectForm() {
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='date'>Date</label>
+          <label className='info' htmlFor='date'>Date:</label>
           <input className='input'
             type="date" 
             name="date" 
@@ -45,7 +45,7 @@ function InspectForm() {
       
       <div className="col-2">
         <dvi className="input-group">
-          <label className='info' htmlFor='lift'>Lift</label>
+          <label className='info' htmlFor='lift'>Lift:</label>
           <input className='input'
             type="text" 
             name="lift" 
@@ -55,7 +55,7 @@ function InspectForm() {
         </dvi>
 
         <div className="input-group">
-          <label className='info' htmlFor='hours'>Hours</label>
+          <label className='info' htmlFor='hours'>Hours:</label>
           <input className='input'
             type="numbers" 
             name="hours" 
@@ -68,7 +68,7 @@ function InspectForm() {
         {/* Maintenance Status: */}
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='tires'>Tires</label>
+          <label className='info' htmlFor='tires'>Tires:</label>
           <select className='input'
             type="select" 
             name="tires" 
@@ -82,7 +82,7 @@ function InspectForm() {
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='horn'>Horn</label>
+          <label className='info' htmlFor='horn'>Horn:</label>
           <select className='input'
             type="text" 
             name="horn" 
@@ -96,8 +96,8 @@ function InspectForm() {
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='battery'>Battery</label>
-          <select className='input'
+          <label className='info' htmlFor='battery'>Battery:</label>
+          <select  required className='input'
             type="text" 
             name="battery" 
             value={inputs.battery|| ""} 
@@ -112,7 +112,7 @@ function InspectForm() {
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='controls'>Controls</label>
+          <label className='info' htmlFor='controls'>Controls:</label>
           <select className='input'
             type="text" 
             name="controls" 
@@ -126,7 +126,7 @@ function InspectForm() {
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='brakes'>Brakes/Brake Fluid</label>
+          <label className='info' htmlFor='brakes'>Brakes/Brake Fluid:</label>
           <select className='input'
             type="text" 
             name="brakes" 
@@ -140,7 +140,7 @@ function InspectForm() {
         </div>
         
         <div className="input-group">
-          <label className='info' htmlFor='steering'>Steering</label>
+          <label className='info' htmlFor='steering'>Steering:</label>
           <select className='input'
             type="text" 
             name="steering" 
@@ -156,7 +156,7 @@ function InspectForm() {
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='hydraulic'>Hydraulics</label>
+          <label className='info' htmlFor='hydraulic'>Hydraulics:</label>
           <select className='input'
             type="text" 
             name="hydraulic" 
@@ -170,7 +170,7 @@ function InspectForm() {
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='hydraulic'>Overhead Guard</label>
+          <label className='info' htmlFor='hydraulic'>Overhead Guard:</label>
           <select className='input'
             type="text" 
             name="overhead" 
@@ -184,7 +184,7 @@ function InspectForm() {
         </div>
         
         <div className="input-group">
-          <label className='info' htmlFor='charger'>Charger</label>
+          <label className='info' htmlFor='charger'>Charger:</label>
           <select className='input'
             type="text" 
             name="charger" 
@@ -200,7 +200,7 @@ function InspectForm() {
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='fallarrest'>Seat Belt / Fall Arrest</label>
+          <label className='info' htmlFor='fallarrest'>Seat Belt / Fall Arrest:</label>
           <select className='input'
             type="text" 
             name="fallarrest" 
@@ -214,7 +214,7 @@ function InspectForm() {
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='loadplate'>Is load plate displayed/ free from damage?</label>
+          <label className='info' htmlFor='loadplate'>Is load plate displayed / free from damage?:</label>
           <select className='input'
             type="text" 
             name="loadplate" 
@@ -228,7 +228,7 @@ function InspectForm() {
         </div>
         
         <div className="input-group">
-          <label className='info' htmlFor='manual'>Is operators manual present?</label>
+          <label className='info' htmlFor='manual'>Is the operators manual present?:</label>
           <select className='input'
             type="text" 
             name="manual" 
@@ -244,7 +244,7 @@ function InspectForm() {
 
       <div className="col">
           <div className="input-group">
-            <label className='info' htmlFor='clean'>Is forklift clean, free of trash, excess oil and grease?</label>
+            <label className='info' htmlFor='clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
             <select className='input'
               type="text" 
               name="clean" 
