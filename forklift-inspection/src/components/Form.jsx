@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../App.css';
-import PassFail from './PassFail';
+// import PassFail from './PassFail';
 
 function InspectForm() {
   const [inputs, setInputs] = useState({});
@@ -13,12 +13,12 @@ function InspectForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // alert(inputs);
     console.log(inputs)
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form-group">
+    <form onSubmit={handleSubmit} 
+      className="form-group">
       
       {/* Lift + Operator Info: */}
       <div className="col-2">
@@ -27,7 +27,6 @@ function InspectForm() {
           <input required className='input'
             type="text" 
             name="name" 
-            value={inputs.name || ""} 
             onChange={handleChange}
           />
         </div>
@@ -37,75 +36,70 @@ function InspectForm() {
           <input required className='input'
             type="date" 
             name="date" 
-            value={inputs.date || ""} 
             onChange={handleChange}
           />
         </div>
       </div>
       
       <div className="col-2">
-        <dvi className="input-group">
+        <div className="input-group">
           <label className='info' htmlFor='lift'>Lift:</label>
           <input required className='input'
             type="text" 
             name="lift" 
-            value={inputs.lift || ""} 
             onChange={handleChange}
           />
-        </dvi>
+        </div>
 
         <div className="input-group">
           <label className='info' htmlFor='hours'>Hours:</label>
           <input required className='input'
-            type="numbers" 
+            type="number" 
             name="hours" 
-            value={inputs.hours|| ""} 
             onChange={handleChange}
           />
           
         </div>
       </div>
-        {/* Maintenance Status: */}
+      
+      {/* Maintenance Status: */}
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='tires'>Tires:</label>
-          <select required className='input'
-            type="select" 
+          <select required className='input' 
             name="tires" 
-            value={inputs.tires|| PassFail} 
+            // value={inputs.tires|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
 
         <div className="input-group">
           <label className='info' htmlFor='horn'>Horn:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="horn" 
-            value={inputs.horn|| ""} 
+            // value={inputs.horn|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
 
         <div className="input-group">
           <label className='info' htmlFor='battery'>Battery:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="battery" 
-            value={inputs.battery|| ""} 
+            // value={inputs.battery|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
       </div>
@@ -113,164 +107,157 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='controls'>Controls:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="controls" 
-            value={inputs.controls|| ""} 
+            // value={inputs.controls|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
 
         <div className="input-group">
           <label className='info' htmlFor='brakes'>Brakes/Brake Fluid:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="brakes" 
-            value={inputs.brakes|| ""} 
+            // value={inputs.brakes|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
         
         <div className="input-group">
           <label className='info' htmlFor='steering'>Steering:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="steering" 
-            value={inputs.steering|| ""} 
+            // value={inputs.steering|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
       </div>
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='hydraulic'>Hydraulics:</label>
-          <select required className='input'
-            type="text" 
-            name="hydraulic" 
-            value={inputs.hydraulic|| ""} 
+          <label className='info' htmlFor='hydraulics'>Hydraulics:</label>
+          <select required className='input' 
+            name="hydraulics" 
+            // value={inputs.hydraulics || ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='hydraulic'>Overhead Guard:</label>
-          <select required className='input'
-            type="text" 
-            name="overhead" 
-            value={inputs.overhead|| ""} 
+          <label className='info' htmlFor='overhead_guard'>Overhead Guard:</label>
+          <select required className='input' 
+            name="overhead_guard" 
+            // value={inputs.overhead_guard || ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
         
         <div className="input-group">
           <label className='info' htmlFor='charger'>Charger:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="charger" 
-            value={inputs.charger|| ""} 
+            // value={inputs.charger|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
       </div>
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='fallarrest'>Seat Belt / Fall Arrest:</label>
-          <select required className='input'
-            type="text" 
-            name="fallarrest" 
-            value={inputs.fallarrest|| ""} 
+          <label className='info' htmlFor='fall_arrest'>Seat Belt / Fall Arrest:</label>
+          <select required className='input' 
+            name="fall_arrest" 
+            // value={inputs.fall_arrest|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='loadplate'>Is load plate displayed / free from damage?:</label>
-          <select required className='input'
-            type="text" 
-            name="loadplate" 
-            value={inputs.loadplate|| ""} 
+          <label className='info' htmlFor='is_load_plate_displayed'>Is load plate displayed / free from damage?:</label>
+          <select required className='input' 
+            name="is_load_plate_displayed" 
+            // value={inputs.is_load_plate_displayed|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
         
         <div className="input-group">
-          <label className='info' htmlFor='manual'>Is the operators manual present?:</label>
-          <select required className='input'
-            type="text" 
-            name="manual" 
-            value={inputs.manual|| ""} 
+          <label className='info' htmlFor='is_operators_manual_present'>Is the operators manual present?:</label>
+          <select required className='input' 
+            name="is_operators_manual_present" 
+            // value={inputs.is_operators_manual_present|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            <option value="" readOnly></option>
+            <option value={true}>Pass</option>
+            <option value={false}>Fail</option>
           </select>
         </div>
       </div>
 
       <div className="col">
           <div className="input-group">
-            <label className='info' htmlFor='clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
-            <select required className='input'
-              type="text" 
-              name="clean" 
-              value={inputs.clean|| ""} 
+            <label className='info' htmlFor='is_forklift_clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
+            <select required className='input' 
+              name="is_forklift_clean" 
+              // value={inputs.is_forklift_clean|| ""} 
               onChange={handleChange}
             >
-              <option value="" disabled></option>
-              <option value="Pass">Pass</option>
-              <option value="Fail">Fail</option>
+              <option value="" readOnly></option>
+              <option value={true}>Pass</option>
+              <option value={false}>Fail</option>
             </select>
           </div>
       </div>
 
       <div className="col">
           <div className="input-group">
-            <label className='info' htmlFor='clean'>If any deficiencies are present, describe below:</label>
-            <input  className='input'
+            <label className='info' htmlFor='deficiencies_present'>If any deficiencies are present, describe below:</label>
+            <input className='input'
             type="text" 
-            name="deficiencies" 
-            value={inputs.deficiencies || ""} 
+            name="deficiencies_present" 
+            value={inputs.deficiencies_present || ""} 
             onChange={handleChange}
           />
           </div>
       </div>
   
-    <button className='button' type='submit'>SUBMIT</button>
+    <div className='actions'>
+      <button className='button' type='reset'>RESET</button>
+      <button className='button' type='submit'>SUBMIT</button>
+    </div>
 </form>
   )
 }
