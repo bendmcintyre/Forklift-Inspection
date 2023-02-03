@@ -1,11 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'
 import '../App.css';
 // import PassFail from './PassFail';
 
 function InspectForm() {
+  const [data, setData] = useState({});
+  let location = useLocation(); // got this from https://reactrouter.com/en/main/hooks/use-location
+
   const [inputs, setInputs] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate() // got this from https://reactrouter.com/en/main/hooks/use-navigate
+
+  const API_URL = 'https://forklift-inspection-backend.vercel.app'
+
+  let passAndFail = [ // this is for the dropdown select
+    {label: "", value: ""},
+    {label: "Pass", value: true},
+    {label: "Fail", value: false}
+  ]
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -15,11 +26,8 @@ function InspectForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(JSON.stringify(inputs))
 
-    const API_URL = 'https://forklift-inspection-backend.vercel.app/inspections'
-
-    fetch(API_URL, {
+    fetch(API_URL + "/inspections", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,10 +37,35 @@ function InspectForm() {
       .then(data => {
         if(data.data != null) {
           alert(data.message)
-          navigate('/inspect')
+          navigate('/inspections')
         }
       })
   }
+
+  const fetchData = async () => {
+    let id = location.search.split('=').reverse()[0]
+    const rawResponse = await fetch(API_URL + `/inspections/${id}`)
+    const response = await rawResponse.json()
+
+    if(typeof response.message !== 'object'){ // if string, it means that the response is either no record or with record
+      console.log(response.data)
+      document.title = `Inspections | ${response.data.name}`
+      setData(response.data)
+    }
+  }
+
+  const fixDateFormat = (date) => {
+    let d = new Date(date)
+    let month = d.getMonth() + 1
+    month = (month < 10) ? `0${month}` : month
+    let day = (d.getDate() < 10) ? `0${d.getDate()}` : d.getDate()
+    
+    return [d.getFullYear(), month, day].join('-')
+  }
+
+  useEffect(() => {
+    fetchData()  
+  }, [])
 
   return (
     <form onSubmit={handleSubmit} 
@@ -46,6 +79,7 @@ function InspectForm() {
             type="text" 
             name="name" 
             onChange={handleChange}
+            value={data.name ? data.name : ''}
           />
         </div>
 
@@ -55,6 +89,7 @@ function InspectForm() {
             type="date" 
             name="date" 
             onChange={handleChange}
+            value={data.date ? fixDateFormat(data.date) : ''}
           />
         </div>
       </div>
@@ -66,6 +101,7 @@ function InspectForm() {
             type="text" 
             name="lift" 
             onChange={handleChange}
+            value={data.lift ? data.lift : ''}
           />
         </div>
 
@@ -75,6 +111,7 @@ function InspectForm() {
             type="number" 
             name="hours" 
             onChange={handleChange}
+            value={data.hours ? data.hours : ''}
           />
           
         </div>
@@ -84,14 +121,17 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='tires'>Tires:</label>
-          <select required className='input' 
+          <select required 
+            className='input' 
             name="tires" 
-            // value={inputs.tires|| ""} 
+            // defaultValue={(data.tires) ? data.tires : ''}
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.tires && data.tires === option.value) ? data.tires : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
@@ -102,9 +142,11 @@ function InspectForm() {
             // value={inputs.horn|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.horn && data.horn === option.value) ? data.horn : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
@@ -115,9 +157,11 @@ function InspectForm() {
             // value={inputs.battery|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.battery && data.battery === option.value) ? data.battery : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
@@ -130,9 +174,11 @@ function InspectForm() {
             // value={inputs.controls|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.controls && data.controls === option.value) ? data.controls : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
@@ -143,9 +189,11 @@ function InspectForm() {
             // value={inputs.brakes|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.brakes && data.brakes === option.value) ? data.brakes : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
         
@@ -156,9 +204,11 @@ function InspectForm() {
             // value={inputs.steering|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.steering && data.steering === option.value) ? data.steering : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
@@ -171,9 +221,11 @@ function InspectForm() {
             // value={inputs.hydraulics || ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.hydraulics && data.hydraulics === option.value) ? data.hydraulics : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
@@ -184,9 +236,11 @@ function InspectForm() {
             // value={inputs.overhead_guard || ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.overhead_guard && data.overhead_guard === option.value) ? data.overhead_guard : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
         
@@ -197,9 +251,11 @@ function InspectForm() {
             // value={inputs.charger|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.charger && data.charger === option.value) ? data.charger : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
@@ -212,9 +268,11 @@ function InspectForm() {
             // value={inputs.fall_arrest|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.fall_arrest && data.fall_arrest === option.value) ? data.fall_arrest : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
@@ -225,9 +283,11 @@ function InspectForm() {
             // value={inputs.is_load_plate_displayed|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.is_load_plate_displayed && data.is_load_plate_displayed === option.value) ? data.is_load_plate_displayed : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
         
@@ -238,9 +298,11 @@ function InspectForm() {
             // value={inputs.is_operators_manual_present|| ""} 
             onChange={handleChange}
           >
-            <option value="" readOnly></option>
-            <option value={true}>Pass</option>
-            <option value={false}>Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.is_operators_manual_present && data.is_operators_manual_present === option.value) ? data.is_operators_manual_present : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
@@ -253,9 +315,11 @@ function InspectForm() {
               // value={inputs.is_forklift_clean|| ""} 
               onChange={handleChange}
             >
-              <option value="" readOnly></option>
-              <option value={true}>Pass</option>
-              <option value={false}>Fail</option>
+              {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.is_forklift_clean && data.is_forklift_clean === option.value) ? data.is_forklift_clean : ''}>{option.label}</option>
+              )
+            })}
             </select>
           </div>
       </div>
@@ -266,7 +330,7 @@ function InspectForm() {
             <input className='input'
             type="text" 
             name="deficiencies_present" 
-            // value={inputs.deficiencies_present || ""} 
+            value={data.deficiencies_present ? data.deficiencies_present : '' } 
             onChange={handleChange}
           />
           </div>
