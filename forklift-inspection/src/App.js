@@ -7,7 +7,7 @@ import Contact from "./components/Contact";
 import InspectForm from "./components/Form";
 import Inspections from "./components/Inspections";
 
-import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom"; // this is for routing purposes
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // this is for routing purposes
 
 function App() {
   return (

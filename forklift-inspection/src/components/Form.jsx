@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import '../App.css';
 // import PassFail from './PassFail';
 
 function InspectForm() {
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -13,7 +15,23 @@ function InspectForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs)
+    // console.log(JSON.stringify(inputs))
+
+    const API_URL = 'https://forklift-inspection-backend.vercel.app/inspections'
+
+    fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(inputs)
+    }).then(response => response.json())
+      .then(data => {
+        if(data.data != null) {
+          alert(data.message)
+          navigate('/inspect')
+        }
+      })
   }
 
   return (
@@ -248,7 +266,7 @@ function InspectForm() {
             <input className='input'
             type="text" 
             name="deficiencies_present" 
-            value={inputs.deficiencies_present || ""} 
+            // value={inputs.deficiencies_present || ""} 
             onChange={handleChange}
           />
           </div>
