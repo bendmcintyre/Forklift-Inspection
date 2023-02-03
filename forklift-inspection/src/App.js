@@ -2,7 +2,7 @@ import "./App.css";
 
 import Header from "./components/Header";
 import Safety from "./components/Safety";
-import Inspect from "./components/Inspect";
+import Home from "./components/Home";
 import Contact from "./components/Contact";
 import InspectForm from "./components/Form";
 import Inspections from "./components/Inspections";
@@ -18,8 +18,8 @@ function App() {
         <div className="react-view">
           {/* Component that'll match the routes name will be rendered here */}
           <Routes>
-            <Route path="/" element={<Inspect />} />
-            <Route path="/inspect" element={<Inspect />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/inspections" element={<Inspections />} />
             <Route path="/safety" element={<Safety />} />
             <Route path="/contact" element={<Contact />} />

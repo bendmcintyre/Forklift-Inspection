@@ -180,13 +180,19 @@ nav a:hover {
   text-decoration: none;
 }
 
-button {
+button, .button-like {
   font-size: 28px;
   padding: 20px 40px;
   cursor: pointer;
   color: #1976D2;
   border: 1px solid #1976D2;
   border-radius: 15px;
+}
+
+.button-like{
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: #fff;
 }
 
 #start-button:hover {
@@ -333,12 +339,6 @@ input, select{
 .react-view{
   margin: 36px auto;
 }
-
-
-
-
-
-
 
 
 
