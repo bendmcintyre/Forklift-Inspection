@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../form.css';
+import '../App.css';
 import PassFail from './PassFail';
 
 function InspectForm() {
@@ -255,6 +255,18 @@ function InspectForm() {
               <option value="Pass">Pass</option>
               <option value="Fail">Fail</option>
             </select>
+          </div>
+      </div>
+
+      <div className="col">
+          <div className="input-group">
+            <label className='info' htmlFor='clean'>If any deficiencies are present, describe below:</label>
+            <input  className='input'
+            type="text" 
+            name="deficiencies" 
+            value={inputs.deficiencies || ""} 
+            onChange={handleChange}
+          />
           </div>
       </div>
   
