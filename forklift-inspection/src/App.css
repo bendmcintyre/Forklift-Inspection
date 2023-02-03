@@ -282,11 +282,11 @@ input, select{
 }
 
 /* FORM SUBMIT BUTTON STYLING BELOW */
+.actions{
+  display: flex;
+}
 
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 30%;
   margin: 0 auto;
   transition: all 0.2s ease-in-out;
