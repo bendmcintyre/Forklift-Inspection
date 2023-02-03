@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom"
+import forkliftLogo from "../images/forklift-logo.png";
 
 export default function Contact() {
   return (
     <div>
       <div id="contact-div">
+        <div>
+        <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />
+        </div>
         <div id="contact-info">
           <a
             className="contact-info"
