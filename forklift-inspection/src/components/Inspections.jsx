@@ -39,14 +39,14 @@ export default function Inspections() {
 
   const tableRows = data.map((el, index) => {
     return (
-      <tr key={index}>
-        <td>{el.name}</td>
-        <td>{el.date}</td>
-        <td>{el.lift}</td>
-        <td>{el.hours}</td>
+      <tr className= "tr" key={index}>
+        <td className="td">{el.name}</td>
+        <td className="td">{el.date}</td>
+        <td className="td">{el.lift}</td>
+        <td className="td">{el.hours}</td>
         <td>
           <Link to={`/inspect-form?id=${el._id}`} className="button-like">Edit</Link>
-          <button onClick={() => {
+          <button className="button-like" onClick={() => {
             if(window.confirm("Are you sure you want to remove?")){
               removeData(el._id)
             }
@@ -58,7 +58,12 @@ export default function Inspections() {
 
   return (
     <div>
-      <h1>Inspections</h1>
+      
+     
+    <div>
+        <Link to="/inspect-form" id="start-button">INSPECT</Link>
+    </div>
+
       <table>
         <thead>
           <tr>
