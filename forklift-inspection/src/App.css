@@ -298,6 +298,9 @@ select {
 }
 
 /* FORM SUBMIT BUTTON STYLING BELOW */
+.actions{
+  display: flex;
+}
 
 .button {
   display: flex;

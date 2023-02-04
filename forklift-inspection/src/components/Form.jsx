@@ -1,9 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'
 import '../App.css';
-import PassFail from './PassFail';
+// import PassFail from './PassFail';
 
 function InspectForm() {
+  const [data, setData] = useState({});
+  let location = useLocation(); // got this from https://reactrouter.com/en/main/hooks/use-location
+
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate() // got this from https://reactrouter.com/en/main/hooks/use-navigate
+
+  const API_URL = 'https://forklift-inspection-backend.vercel.app'
+
+  let passAndFail = [ // this is for the dropdown select
+    {label: "", value: ""},
+    {label: "Pass", value: true},
+    {label: "Fail", value: false}
+  ]
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -13,12 +26,50 @@ function InspectForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // alert(inputs);
-    console.log(inputs)
+
+    fetch(API_URL + "/inspections", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(inputs)
+    }).then(response => response.json())
+      .then(data => {
+        if(data.data != null) {
+          alert(data.message)
+          navigate('/inspections')
+        }
+      })
   }
 
+  const fetchData = async () => {
+    let id = location.search.split('=').reverse()[0]
+    const rawResponse = await fetch(API_URL + `/inspections/${id}`)
+    const response = await rawResponse.json()
+
+    if(typeof response.message !== 'object'){ // if string, it means that the response is either no record or with record
+      console.log(response.data)
+      document.title = `Inspections | ${response.data.name}`
+      setData(response.data)
+    }
+  }
+
+  const fixDateFormat = (date) => {
+    let d = new Date(date)
+    let month = d.getMonth() + 1
+    month = (month < 10) ? `0${month}` : month
+    let day = (d.getDate() < 10) ? `0${d.getDate()}` : d.getDate()
+    
+    return [d.getFullYear(), month, day].join('-')
+  }
+
+  useEffect(() => {
+    fetchData()  
+  }, [])
+
   return (
-    <form onSubmit={handleSubmit} className="form-group">
+    <form onSubmit={handleSubmit} 
+      className="form-group">
       
       {/* Lift + Operator Info: */}
       <div className="col-2">
@@ -27,8 +78,8 @@ function InspectForm() {
           <input required className='input'
             type="text" 
             name="name" 
-            value={inputs.name || ""} 
             onChange={handleChange}
+            value={data.name ? data.name : ''}
           />
         </div>
 
@@ -37,75 +88,80 @@ function InspectForm() {
           <input required className='input'
             type="date" 
             name="date" 
-            value={inputs.date || ""} 
             onChange={handleChange}
+            value={data.date ? fixDateFormat(data.date) : ''}
           />
         </div>
       </div>
       
       <div className="col-2">
-        <dvi className="input-group">
+      <div className="input-group">
           <label className='info' htmlFor='lift'>Lift:</label>
           <input required className='input'
             type="text" 
             name="lift" 
-            value={inputs.lift || ""} 
             onChange={handleChange}
+            value={data.lift ? data.lift : ''}
           />
-        </dvi>
+        </div>
 
         <div className="input-group">
           <label className='info' htmlFor='hours'>Hours:</label>
           <input required className='input'
-            type="numbers" 
+            type="number" 
             name="hours" 
-            value={inputs.hours|| ""} 
             onChange={handleChange}
+            value={data.hours ? data.hours : ''}
           />
           
         </div>
       </div>
-        {/* Maintenance Status: */}
+      
+      {/* Maintenance Status: */}
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='tires'>Tires:</label>
-          <select required className='input'
-            type="select" 
+          <select required 
+            className='input' 
             name="tires" 
-            value={inputs.tires|| PassFail} 
+            // defaultValue={(data.tires) ? data.tires : ''}
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.tires && data.tires === option.value) ? data.tires : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
         <div className="input-group">
           <label className='info' htmlFor='horn'>Horn:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="horn" 
-            value={inputs.horn|| ""} 
+            // value={inputs.horn|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.horn && data.horn === option.value) ? data.horn : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
         <div className="input-group">
           <label className='info' htmlFor='battery'>Battery:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="battery" 
-            value={inputs.battery|| ""} 
+            // value={inputs.battery|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.battery && data.battery === option.value) ? data.battery : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
@@ -113,164 +169,177 @@ function InspectForm() {
       <div className="col-3">
         <div className="input-group">
           <label className='info' htmlFor='controls'>Controls:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="controls" 
-            value={inputs.controls|| ""} 
+            // value={inputs.controls|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.controls && data.controls === option.value) ? data.controls : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
         <div className="input-group">
           <label className='info' htmlFor='brakes'>Brakes/Brake Fluid:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="brakes" 
-            value={inputs.brakes|| ""} 
+            // value={inputs.brakes|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.brakes && data.brakes === option.value) ? data.brakes : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
         
         <div className="input-group">
           <label className='info' htmlFor='steering'>Steering:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="steering" 
-            value={inputs.steering|| ""} 
+            // value={inputs.steering|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.steering && data.steering === option.value) ? data.steering : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='hydraulic'>Hydraulics:</label>
-          <select required className='input'
-            type="text" 
-            name="hydraulic" 
-            value={inputs.hydraulic|| ""} 
+          <label className='info' htmlFor='hydraulics'>Hydraulics:</label>
+          <select required className='input' 
+            name="hydraulics" 
+            // value={inputs.hydraulics || ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.hydraulics && data.hydraulics === option.value) ? data.hydraulics : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='hydraulic'>Overhead Guard:</label>
-          <select required className='input'
-            type="text" 
-            name="overhead" 
-            value={inputs.overhead|| ""} 
+          <label className='info' htmlFor='overhead_guard'>Overhead Guard:</label>
+          <select required className='input' 
+            name="overhead_guard" 
+            // value={inputs.overhead_guard || ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.overhead_guard && data.overhead_guard === option.value) ? data.overhead_guard : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
         
         <div className="input-group">
           <label className='info' htmlFor='charger'>Charger:</label>
-          <select required className='input'
-            type="text" 
+          <select required className='input' 
             name="charger" 
-            value={inputs.charger|| ""} 
+            // value={inputs.charger|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.charger && data.charger === option.value) ? data.charger : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
 
       <div className="col-3">
         <div className="input-group">
-          <label className='info' htmlFor='fallarrest'>Seat Belt / Fall Arrest:</label>
-          <select required className='input'
-            type="text" 
-            name="fallarrest" 
-            value={inputs.fallarrest|| ""} 
+          <label className='info' htmlFor='fall_arrest'>Seat Belt / Fall Arrest:</label>
+          <select required className='input' 
+            name="fall_arrest" 
+            // value={inputs.fall_arrest|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.fall_arrest && data.fall_arrest === option.value) ? data.fall_arrest : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
 
         <div className="input-group">
-          <label className='info' htmlFor='loadplate'>Load plate displayed:</label>
-          <select required className='input'
-            type="text" 
-            name="loadplate" 
-            value={inputs.loadplate|| ""} 
+          <label className='info' htmlFor='is_load_plate_displayed'>Is load plate displayed / free from damage?:</label>
+          <select required className='input' 
+            name="is_load_plate_displayed" 
+            // value={inputs.is_load_plate_displayed|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.is_load_plate_displayed && data.is_load_plate_displayed === option.value) ? data.is_load_plate_displayed : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
         
         <div className="input-group">
-          <label className='info' htmlFor='manual'>Operators manual present?:</label>
-          <select required className='input'
-            type="text" 
-            name="manual" 
-            value={inputs.manual|| ""} 
+          <label className='info' htmlFor='is_operators_manual_present'>Is the operators manual present?:</label>
+          <select required className='input' 
+            name="is_operators_manual_present" 
+            // value={inputs.is_operators_manual_present|| ""} 
             onChange={handleChange}
           >
-            <option value="" disabled></option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
+            {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.is_operators_manual_present && data.is_operators_manual_present === option.value) ? data.is_operators_manual_present : ''}>{option.label}</option>
+              )
+            })}
           </select>
         </div>
       </div>
 
       <div className="col">
-          <div className="input-group">
-            <label className='info' htmlFor='clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
-            <select required className='input'
-              type="text" 
-              name="clean" 
-              value={inputs.clean|| ""} 
+        <div className="input-group">
+            <label className='info' htmlFor='is_forklift_clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
+            <select required className='input' 
+              name="is_forklift_clean" 
+              // value={inputs.is_forklift_clean|| ""} 
               onChange={handleChange}
             >
-              <option value="" disabled></option>
-              <option value="Pass">Pass</option>
-              <option value="Fail">Fail</option>
+              {passAndFail.map((option, index) => {
+              return(
+                <option key={index} value={option.value} selected={(data.is_forklift_clean && data.is_forklift_clean === option.value) ? data.is_forklift_clean : ''}>{option.label}</option>
+              )
+            })}
             </select>
           </div>
       </div>
 
       <div className="col">
-          <div className="input-group">
-            <label className='info' htmlFor='clean'>If any deficiencies are present, describe below:</label>
-            <input  className='input'
+        <div className="input-group">
+            <label className='info' htmlFor='deficiencies_present'>If any deficiencies are present, describe below:</label>
+            <input className='input'
             type="text" 
-            name="deficiencies" 
-            value={inputs.deficiencies || ""} 
+            name="deficiencies_present" 
+            value={data.deficiencies_present ? data.deficiencies_present : '' } 
             onChange={handleChange}
           />
           </div>
       </div>
   
-    <button className='button' type='submit'>SUBMIT</button>
+      <div className='actions'>
+        <button className='button' type='reset'>RESET</button>
+        <button className='button' type='submit'>SUBMIT</button>
+      </div>
 </form>
   )
 }
