@@ -65,7 +65,7 @@ nav a {
   border: 0px;
   color: var(--accent-color-4);
   border-radius: 6px;
-  padding: 10px 20px;
+  padding: 7.5px 15px;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -169,36 +169,60 @@ nav a:hover {
   background-color: white;
   border: 1px;
   border-radius: 15px;
-  padding: 20px 20px;
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--secondary-color);
-  margin: 0px;
+  margin-top: -20px;
   text-align: center;
   text-decoration: none;
-}
-
-button, .button-like {
-  font-size: 28px;
-  padding: 20px 40px;
-  cursor: pointer;
-  color: #1976D2;
-  border: 1px solid #1976D2;
-  border-radius: 15px;
-}
-
-.button-like{
-  text-decoration: none;
-  background-color: #fff;
+  width: 250px;
+  height: 75px;
+  margin-bottom: 3rem;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(40%, 40%);
+  transform: translate(120%, 5%);
 }
 
 #start-button:hover {
   background-color: var(--secondary-color);
   color: white;
+  filter: brightness(80%);
   border-color: var(--accent-color-4);
   cursor: pointer;
+}
+
+
+button, .button-like {
+  font-size: 28px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #1976D2;
+  border: 1px solid #1976D2;
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
+}
+
+.button-like{
+  text-decoration: none;
+  background-color: #fff;
+  margin-left: 5px;
+  margin-top: 20px;
+}
+
+.button-like:hover{
+  background-color: var(--accent-color-4);
+  color: white;
+  border-color: var(--accent-color-4);
+  cursor: pointer;
+}
+
+.button:hover{
+  text-decoration: none;
+  background-color: #fff;
+  filter: brightness(80%);
 }
 
 /* SAFETY RULES LIST STYLING BELOW */
@@ -255,13 +279,6 @@ select {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 767px) {
-  .test02 {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(13, 1fr);
-  }
-}
-
 .form-group {
   margin: auto 5%;
   letter-spacing: 2px;
@@ -278,15 +295,6 @@ select {
 
 .col-2 {
   grid-template-columns: repeat(2, 1fr);
-}
-
-@media only screen and (max-width: 767px) {
-
-  .col,
-  .col-2,
-  .col-3 {
-    grid-template-columns: 1fr;
-  }
 }
 
 .input-group {
@@ -343,17 +351,72 @@ select {
 @media only screen and (min-width: 100px) {
   h1 {
     font-size: 48px;
-  }
-
+  } 
   nav a button {
     font-size: 16px;
   }
-
   nav a {
     width: auto;
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .col,
+  .col-2,
+  .col-3 {
+    grid-template-columns: 1fr;
+  }
+  .test02 {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(13, 1fr);
+  }
+}
+
+@media screen and (min-width: 320px)
+ and (max-width: 767px) 
+ and (orientation: portrait){ 
+  .col,
+  .col-2,
+  .col-3 {
+    grid-template-columns: 1fr;
+  }
+  .test02 {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(13, 1fr);
+  }
+  .button {
+    padding: 5px 5px;
+    font-size: 10px;
+  }
+  a#start-button {
+   padding: 0px 60px;
+   width: 100px;
+   height: 50px;
+   -ms-transform: translate(50%, 50%);
+   transform: translate(97.5%, -5%);
+   font-size: 25px;
+  }
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  .button-like{
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 390px)
+ and (max-width: 844px) 
+ and (orientation: portrait){ 
+  
+}
 .react-view {
   margin: 36px auto;
 }
