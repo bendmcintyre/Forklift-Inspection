@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import '../App.css';
 // import PassFail from './PassFail';
 
 function InspectForm() {
-  const [data, setData] = useState({});
   let location = useLocation(); // got this from https://reactrouter.com/en/main/hooks/use-location
 
   const [inputs, setInputs] = useState({});
@@ -13,7 +12,7 @@ function InspectForm() {
   const API_URL = 'https://forklift-inspection-backend.vercel.app'
 
   let passAndFail = [ // this is for the dropdown select
-    {label: "", value: ""},
+    {label: "Select status...", value: ""},
     {label: "Pass", value: true},
     {label: "Fail", value: false}
   ]
@@ -27,8 +26,18 @@ function InspectForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(API_URL + "/inspections", {
-      method: 'POST',
+    let route = "";
+    let method = "";
+    if(inputs.hasOwnProperty('_id')){ // got this from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
+      route = `/inspections/${inputs._id}`
+      method = 'PUT'
+    }else{
+      route = "/inspections"
+      method = 'POST'
+    }
+
+    fetch(API_URL + route, {
+      method: method,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -43,14 +52,14 @@ function InspectForm() {
   }
 
   const fetchData = async () => {
-    let id = location.search.split('=').reverse()[0]
+    const id = location.search.split('=').reverse()[0]
     const rawResponse = await fetch(API_URL + `/inspections/${id}`)
     const response = await rawResponse.json()
 
     if(typeof response.message !== 'object'){ // if string, it means that the response is either no record or with record
       console.log(response.data)
       document.title = `Inspections | ${response.data.name}`
-      setData(response.data)
+      setInputs(response.data)
     }
   }
 
@@ -62,15 +71,17 @@ function InspectForm() {
     
     return [d.getFullYear(), month, day].join('-')
   }
-
+  
   useEffect(() => {
-    fetchData()  
+    fetchData()
   }, [])
 
   return (
     <form onSubmit={handleSubmit} 
       className="form-group">
       
+      {/* <input type="hidden" name="id" onChange={handleChange} value={inputs._id ? inputs._id : ""}  /> */}
+
       {/* Lift + Operator Info: */}
       <div className="col-2">
         <div className="input-group">
@@ -79,7 +90,7 @@ function InspectForm() {
             type="text" 
             name="name" 
             onChange={handleChange}
-            value={data.name ? data.name : ''}
+            value={inputs.name ? inputs.name : ''}
           />
         </div>
 
@@ -89,7 +100,7 @@ function InspectForm() {
             type="date" 
             name="date" 
             onChange={handleChange}
-            value={data.date ? fixDateFormat(data.date) : ''}
+            value={inputs.date ? fixDateFormat(inputs.date) : ''}
           />
         </div>
       </div>
@@ -101,7 +112,7 @@ function InspectForm() {
             type="text" 
             name="lift" 
             onChange={handleChange}
-            value={data.lift ? data.lift : ''}
+            value={inputs.lift ? inputs.lift : ''}
           />
         </div>
 
@@ -111,7 +122,7 @@ function InspectForm() {
             type="number" 
             name="hours" 
             onChange={handleChange}
-            value={data.hours ? data.hours : ''}
+            value={inputs.hours ? inputs.hours : ''}
           />
           
         </div>
@@ -124,12 +135,12 @@ function InspectForm() {
           <select required 
             className='input' 
             name="tires" 
-            // defaultValue={(data.tires) ? data.tires : ''}
+            // defaultValue={(inputs.tires) ? inputs.tires : ''}
             onChange={handleChange}
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.tires && data.tires === option.value) ? data.tires : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.tires === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -144,7 +155,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.horn && data.horn === option.value) ? data.horn : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.horn === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -159,7 +170,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.battery && data.battery === option.value) ? data.battery : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.battery === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -176,7 +187,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.controls && data.controls === option.value) ? data.controls : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.controls === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -191,7 +202,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.brakes && data.brakes === option.value) ? data.brakes : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.brakes === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -206,7 +217,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.steering && data.steering === option.value) ? data.steering : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.steering === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -223,7 +234,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.hydraulics && data.hydraulics === option.value) ? data.hydraulics : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.hydraulics === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -238,7 +249,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.overhead_guard && data.overhead_guard === option.value) ? data.overhead_guard : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.overhead_guard === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -253,7 +264,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.charger && data.charger === option.value) ? data.charger : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.charger === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -270,7 +281,9 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.fall_arrest && data.fall_arrest === option.value) ? data.fall_arrest : ''}>{option.label}</option>
+                <option key={index} 
+                  value={option.value} 
+                  selected={inputs.fall_arrest === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -285,7 +298,9 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.is_load_plate_displayed && data.is_load_plate_displayed === option.value) ? data.is_load_plate_displayed : ''}>{option.label}</option>
+                <option key={index} 
+                  value={option.value} 
+                  selected={inputs.is_load_plate_displayed === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -300,7 +315,7 @@ function InspectForm() {
           >
             {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.is_operators_manual_present && data.is_operators_manual_present === option.value) ? data.is_operators_manual_present : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.is_operators_manual_present === option.value}>{option.label}</option>
               )
             })}
           </select>
@@ -317,7 +332,7 @@ function InspectForm() {
             >
               {passAndFail.map((option, index) => {
               return(
-                <option key={index} value={option.value} selected={(data.is_forklift_clean && data.is_forklift_clean === option.value) ? data.is_forklift_clean : ''}>{option.label}</option>
+                <option key={index} value={option.value} selected={inputs.is_forklift_clean === option.value}>{option.label}</option>
               )
             })}
             </select>
@@ -330,17 +345,17 @@ function InspectForm() {
             <input className='input'
             type="text" 
             name="deficiencies_present" 
-            value={data.deficiencies_present ? data.deficiencies_present : '' } 
+            value={inputs.deficiencies_present ? inputs.deficiencies_present : '' } 
             onChange={handleChange}
           />
           </div>
       </div>
   
       <div className='actions'>
-        <button className='button' type='reset'>RESET</button>
+        <Link to="/inspections" className='button'>BACK</Link>
         <button className='button' type='submit'>SUBMIT</button>
       </div>
-</form>
+    </form>
   )
 }
 
