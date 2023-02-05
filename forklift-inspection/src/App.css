@@ -388,6 +388,12 @@ select {
     padding: 5px 5px;
     font-size: 10px;
   }
+  
+ 
+
+  button.button-like {
+    margin-top:.75rem;
+  }
   a#start-button {
    padding: 0px 60px;
    width: 100px;
@@ -396,7 +402,9 @@ select {
    transform: translate(97.5%, -5%);
    font-size: 25px;
   }
-  html {
+
+  /* horizontal view in progress - needs to target inpections page */
+  /* html {
     transform: rotate(-90deg);
     transform-origin: left top;
     width: 100vh;
@@ -405,7 +413,7 @@ select {
     position: absolute;
     top: 100%;
     left: 0;
-  }
+  } */
 
   .button-like{
     margin-bottom: 20px;
