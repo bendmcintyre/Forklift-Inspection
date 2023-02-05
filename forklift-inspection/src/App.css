@@ -82,8 +82,12 @@ nav a:hover {
 
 #navbar-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  margin: 20px 0;
+  align-items: center;
   width: 100%;
+  top: 0;
 }
 
 /* SOCIAL MEDIA BUTTON STYLING BELOW */
@@ -175,9 +179,10 @@ nav a:hover {
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--secondary-color);
-  margin: 0px;
+  margin: 0 auto;
   text-align: center;
   text-decoration: none;
+  width: 50%;
 }
 
 button {
@@ -275,15 +280,6 @@ select {
   grid-template-columns: repeat(2, 1fr);
 }
 
-@media only screen and (max-width: 767px) {
-
-  .col,
-  .col-2,
-  .col-3 {
-    grid-template-columns: 1fr;
-  }
-}
-
 .input-group {
   display: flex;
   flex-direction: column;
@@ -326,6 +322,7 @@ select {
 }
 
 /* MEDIA QUERY FOR SCREEN ADJUSTMENTS BETWEEN MOBILE AND DESKTOP BELOW */
+
 @media (max-width: 576px) {
   #social-media-butttons {
     flex-direction: column;
@@ -348,4 +345,13 @@ select {
 
 .react-view {
   margin: 36px auto;
+}
+
+@media only screen and (max-width: 767px) {
+
+  .col,
+  .col-2,
+  .col-3 {
+    grid-template-columns: 1fr;
+  }
 }
