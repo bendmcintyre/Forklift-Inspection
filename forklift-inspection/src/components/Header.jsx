@@ -7,8 +7,8 @@ export default function Header(){
             {/* For routing we need match the route name in Route path attribute */}
             
             <Link to="/inspections">INSPECTIONS</Link>
+            <Link to="/reminders">REMINDER</Link>
             <Link to="/contact">CONTACT</Link>
-            <Link to="/safety">SAFETY</Link>
           </nav>
         </div>
     )

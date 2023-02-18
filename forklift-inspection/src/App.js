@@ -1,7 +1,7 @@
 import "./App.css";
 
 import Header from "./components/Header";
-import Safety from "./components/Safety";
+import Reminders from "./components/Reminders";
 
 import Contact from "./components/Contact";
 import InspectForm from "./components/Form";
@@ -18,9 +18,8 @@ function App() {
         <div className="react-view">
           {/* Component that'll match the routes name will be rendered here */}
           <Routes>
-            
             <Route path="/inspections" element={<Inspections />} />
-            <Route path="/safety" element={<Safety />} />
+            <Route path="/reminders" element={<Reminders />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/inspect-form" element={<InspectForm />} />
           </Routes>
