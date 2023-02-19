@@ -1,3 +1,6 @@
+/*
+ * TODO: replace this component with tailwind definitions
+ *
 import { Table, Container, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
@@ -79,11 +82,11 @@ function DailyChecklist() {
 
     return (
         <Container>
-            <div className="mb-4 d-flex justify-content-between align-items-center"> {/* got this from bootstrap docs */}
+            <div className="mb-4 d-flex justify-content-between align-items-center">
                 <h1>Daily Checklist</h1>
                 <div>
                     <Button variant="outline-primary" className="me-2" onClick={refreshData}>Refresh</Button>
-                    <Link to="/daily-checklist/new" className="btn btn-primary">Add new inspection</Link> {/* get and attach the classnames of bootstrap button*/}
+                    <Link to="/daily-checklist/new" className="btn btn-primary">Add new inspection</Link> 
                 </div>
             </div>
             <Table striped bordered hover>
@@ -101,12 +104,19 @@ function DailyChecklist() {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {data.length <= 0 ? noRecord : displayData} */}
+                    {// {data.length <= 0 ? noRecord : displayData} }
+                    }
                     {displayData}
                 </tbody>
             </Table>
         </Container>
     )
 }
+*/
 
+const DailyChecklist = function() {
+  return (
+    <div></div>
+  );
+};
 export default DailyChecklist
