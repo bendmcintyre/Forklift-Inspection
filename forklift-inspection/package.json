@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format-source": "eslint --fix-dry-run ./"
+    "format-source": "eslint --fix ./"
   },
   "eslintConfig": {
     "extends": [
