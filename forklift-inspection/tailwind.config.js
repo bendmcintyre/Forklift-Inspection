@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -13,5 +13,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@headlessui/tailwindcss')({ prefix: 'ui' }),
   ],
-}
+};
