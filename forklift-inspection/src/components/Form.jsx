@@ -1,362 +1,267 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import {
+  React,
+  useState,
+  useEffect,
+} from 'react';
+import {
+  useNavigate,
+  useLocation,
+  Link,
+} from 'react-router-dom';
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from '@heroicons/react/24/solid';
+import {
+  CheckCircleIcon as CheckCircleOutlineIcon,
+  ExclamationCircleIcon as ExclamationCircleOutlineIcon,
+} from '@heroicons/react/24/outline';
+import {
+  RadioGroup,
+} from '@headlessui/react';
 import '../App.css';
-// import PassFail from './PassFail';
 
+// TODO: Migrate this to a 'utils' component
+const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+function PassFailRadioGroup({ name, defaultValue }) {
+  return (
+    <div className="col-span-12 sm:col-span-6 text-xl sm:text-md text-gray-700 font-medium">
+      <RadioGroup name={name} defaultValue={defaultValue}>
+        <RadioGroup.Label className="block text-base text-gray-200">
+          {capitalizeFirstLetter(name)}
+        </RadioGroup.Label>
+
+        <div className="flex gap-6">
+          <RadioGroup.Option
+            value="fail"
+            className="flex items-center rounded-md h-20 w-full
+                       px-4 py-2
+                       bg-white
+                       shadow-md
+                       ui-not-checked:border-none
+                       ui-checked:border-2
+                       ui-checked:border-red-700
+                       focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-1
+                       focus:right-offset-gray-200"
+          >
+            <ExclamationCircleIcon className="hidden h-14 w-14 ui-checked:block fill-red-700" />
+            <ExclamationCircleOutlineIcon className="hidden h-14 w-14 ui-not-checked:block stroke-red-700" />
+            Fail
+          </RadioGroup.Option>
+          <RadioGroup.Option
+            value="pass"
+            className="flex items-center rounded-md h-20 w-full
+                       px-4 py-2
+                       bg-white
+                       shadow-md
+                       ui-not-checked:border-none
+                       ui-checked:border-2
+                       ui-checked:border-green-700
+                       focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-1
+                       focus:right-offset-gray-200"
+          >
+            <CheckCircleIcon className="hidden h-14 w-14 ui-checked:block fill-green-800" />
+            <CheckCircleOutlineIcon className="hidden h-14 w-14 ui-not-checked:block stroke-green-800" />
+            Pass
+          </RadioGroup.Option>
+        </div>
+      </RadioGroup>
+    </div>
+  );
+}
+
+function InputWithLabel({ name, value, onChange = '', autoComplete = '', type = 'text' }) {
+  return (
+    <div className="col-span-6 sm:col-span-3">
+      <label htmlFor={name} className="block text-md font-medium text-gray-200">
+        {capitalizeFirstLetter(name)}
+      </label>
+
+      <input
+        required
+        type={type}
+        name={name}
+        id={name}
+        autoComplete={autoComplete}
+        onChange={onChange}
+        value={value}
+        className="mt-1 block w-full rounded-md border-gray-300 text-slate-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      />
+    </div>
+  );
+}
+
+function passFailFor(value) {
+  if (value) {
+    return 'pass';
+  }
+
+  return 'fail';
+}
+
+// TOODO: Move state management to reducer and dispatch/consume events
 function InspectForm() {
-  let location = useLocation(); // got this from https://reactrouter.com/en/main/hooks/use-location
+  const location = useLocation(); // got this from https://reactrouter.com/en/main/hooks/use-location
 
+  const [isLoading, setIsLoading] = useState(true); // remote data not yet fetched
   const [inputs, setInputs] = useState({});
-  const navigate = useNavigate() // got this from https://reactrouter.com/en/main/hooks/use-navigate
+  const navigate = useNavigate(); // got this from https://reactrouter.com/en/main/hooks/use-navigate
 
-  const API_URL = 'https://forklift-inspection-backend.vercel.app'
-
-  let passAndFail = [ // this is for the dropdown select
-    {label: "Select status...", value: ""},
-    {label: "Pass", value: true},
-    {label: "Fail", value: false}
-  ]
+  const API_URL = 'https://forklift-inspection-backend.vercel.app';
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
+    const { name } = event.target;
+    const { value } = event.target;
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let route = "";
-    let method = "";
-    if(inputs.hasOwnProperty('_id')){ // got this from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
-      route = `/inspections/${inputs._id}`
-      method = 'PUT'
-    }else{
-      route = "/inspections"
-      method = 'POST'
+    let route = '';
+    let method = '';
+    if (inputs.hasOwnProperty('_id')) { // got this from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
+      route = `/inspections/${inputs._id}`;
+      method = 'PUT';
+    } else {
+      route = '/inspections';
+      method = 'POST';
     }
 
     fetch(API_URL + route, {
-      method: method,
+      method,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(inputs)
-    }).then(response => response.json())
-      .then(data => {
-        if(data.data != null) {
-          alert(data.message)
-          navigate('/inspections')
+      body: JSON.stringify(inputs),
+    }).then((response) => response.json())
+      .then((data) => {
+        if (data.data != null) {
+          alert(data.message);
+          navigate('/inspections');
         }
-      })
-  }
+      });
+  };
+
+  const handleAPIResponse = (response) => {
+    setIsLoading(false);
+    setInputs(response.data);
+  };
 
   const fetchData = async () => {
-    const id = location.search.split('=').reverse()[0]
-    const rawResponse = await fetch(API_URL + `/inspections/${id}`)
-    const response = await rawResponse.json()
+    const id = location.search.split('=').reverse()[0];
+    const rawResponse = await fetch(`${API_URL}/inspections/${id}`);
+    const response = await rawResponse.json();
 
-    if(typeof response.message !== 'object'){ // if string, it means that the response is either no record or with record
-      console.log(response.data)
-      document.title = `Inspections | ${response.data.name}`
-      setInputs(response.data)
+    if (typeof response.message !== 'object') { // if string, it means that the response is either no record or with record
+      console.log(response.data);
+      document.title = `Inspections | ${response.data.name}`;
+      handleAPIResponse(response);
     }
-  }
+  };
 
   const fixDateFormat = (date) => {
-    let d = new Date(date)
-    let month = d.getMonth() + 1
-    month = (month < 10) ? `0${month}` : month
-    let day = (d.getDate() < 10) ? `0${d.getDate()}` : d.getDate()
-    
-    return [d.getFullYear(), month, day].join('-')
-  }
-  
+    const d = new Date(date);
+    let month = d.getMonth() + 1;
+    month = (month < 10) ? `0${month}` : month;
+    const day = (d.getDate() < 10) ? `0${d.getDate()}` : d.getDate();
+
+    return [d.getFullYear(), month, day].join('-');
+  };
+
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  return (
-    <form onSubmit={handleSubmit} 
-      className="form-group">
-      
-      {/* <input type="hidden" name="id" onChange={handleChange} value={inputs._id ? inputs._id : ""}  /> */}
+  // TODO: Make an actual Loader component lol
+  return isLoading ? (
+    <div className="container mx-auto">
+      Spinner...
+    </div>
+  ) : (
+    <div className="container mx-auto">
+      <form id="inspection" onSubmit={handleSubmit} action="#" method="POST">
+        <div className="overflow-hidden shadow sm:rounded-md">
+          <div className="px-4 py-5 sm:p-6">
+            <div className="grid grid-cols-6 gap-6">
 
-      {/* Lift + Operator Info: */}
-      <div className="col-2">
-        <div className="input-group">
-          <label className='info' htmlFor='name'>Name:</label>
-          <input required className='input'
-            type="text" 
-            name="name" 
-            onChange={handleChange}
-            value={inputs.name ? inputs.name : ''}
-          />
-        </div>
+              <InputWithLabel
+                name="name"
+                onChange={handleChange}
+                value={inputs.name ? inputs.name : ''}
+                autoComplete="given-name"
+              />
 
-        <div className="input-group">
-          <label className='info' htmlFor='date'>Date:</label>
-          <input required className='input'
-            type="date" 
-            name="date" 
-            onChange={handleChange}
-            value={inputs.date ? fixDateFormat(inputs.date) : ''}
-          />
-        </div>
-      </div>
-      
-      <div className="col-2">
-      <div className="input-group">
-          <label className='info' htmlFor='lift'>Lift:</label>
-          <input required className='input'
-            type="text" 
-            name="lift" 
-            onChange={handleChange}
-            value={inputs.lift ? inputs.lift : ''}
-          />
-        </div>
+              <InputWithLabel
+                name="date"
+                type="date"
+                onChange={handleChange}
+                value={inputs.date ? fixDateFormat(inputs.date) : ''}
+              />
 
-        <div className="input-group">
-          <label className='info' htmlFor='hours'>Hours:</label>
-          <input required className='input'
-            type="number" 
-            name="hours" 
-            onChange={handleChange}
-            value={inputs.hours ? inputs.hours : ''}
-          />
-          
-        </div>
-      </div>
-      
-      {/* Maintenance Status: */}
-      <div className="col-3">
-        <div className="input-group">
-          <label className='info' htmlFor='tires'>Tires:</label>
-          <select required 
-            className='input' 
-            name="tires" 
-            // defaultValue={(inputs.tires) ? inputs.tires : ''}
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.tires === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
+              <InputWithLabel
+                type="text"
+                name="lift"
+                onChange={handleChange}
+                value={inputs.lift ? inputs.lift : ''}
+              />
 
-        <div className="input-group">
-          <label className='info' htmlFor='horn'>Horn:</label>
-          <select required className='input' 
-            name="horn" 
-            // value={inputs.horn|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.horn === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
+              <InputWithLabel
+                type="number"
+                name="hours"
+                onChange={handleChange}
+                value={inputs.hours ? inputs.hours : ''}
+              />
 
-        <div className="input-group">
-          <label className='info' htmlFor='battery'>Battery:</label>
-          <select required className='input' 
-            name="battery" 
-            // value={inputs.battery|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.battery === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-      </div>
+              <PassFailRadioGroup name="tires" defaultValue={passFailFor(inputs.tires)} />
+              <PassFailRadioGroup name="horn" defaultValue={passFailFor(inputs.horn)} />
+              <PassFailRadioGroup name="battery" defaultValue={passFailFor(inputs.battery)} />
+              <PassFailRadioGroup name="controls" defaultValue={passFailFor(inputs.controls)} />
+              <PassFailRadioGroup name="brakes" defaultValue={passFailFor(inputs.brakes)} />
+              <PassFailRadioGroup name="steering" defaultValue={passFailFor(inputs.steering)} />
+              <PassFailRadioGroup name="hydraulics" defaultValue={passFailFor(inputs.hydraulics)} />
+              <PassFailRadioGroup name="overhead_guard" defaultValue={passFailFor(inputs.overhead_guard)} />
+              <PassFailRadioGroup name="charger" defaultValue={passFailFor(inputs.overhead_guard)} />
+              <PassFailRadioGroup name="fall_arrest" defaultValue={passFailFor(inputs.overhead_guard)} />
+              <PassFailRadioGroup name="is_load_plate_displayed" defaultValue={passFailFor(inputs.overhead_guard)} />
+              <PassFailRadioGroup name="is_operators_manual_present" defaultValue={passFailFor(inputs.overhead_guard)} />
+              <PassFailRadioGroup name="is_forklift_clean" defaultValue={passFailFor(inputs.overhead_guard)} />
 
-      <div className="col-3">
-        <div className="input-group">
-          <label className='info' htmlFor='controls'>Controls:</label>
-          <select required className='input' 
-            name="controls" 
-            // value={inputs.controls|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.controls === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
+              <div className="col-span-12 sm:col-span-6">
+                <InputWithLabel
+                  type="text"
+                  name="deficiencies_present"
+                  onChange={handleChange}
+                  value={inputs.deficiencies_present ? inputs.deficiencies_present : ''}
+                  className="col-span-12"
+                />
+              </div>
 
-        <div className="input-group">
-          <label className='info' htmlFor='brakes'>Brakes/Brake Fluid:</label>
-          <select required className='input' 
-            name="brakes" 
-            // value={inputs.brakes|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.brakes === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-        
-        <div className="input-group">
-          <label className='info' htmlFor='steering'>Steering:</label>
-          <select required className='input' 
-            name="steering" 
-            // value={inputs.steering|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.steering === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-      </div>
+              <div className="col-span-12 sm:col-span-6 flex items-center justify-center gap-6">
+                <Link
+                  to="/inspections"
+                  className="inline-flex items-center rounded-md border dark:border-slate-700 bg-gray-700 hover:bg-gray-600 px-4 py-2
+                   text-sm font-bold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:right-offset-green-700"
 
-      <div className="col-3">
-        <div className="input-group">
-          <label className='info' htmlFor='hydraulics'>Hydraulics:</label>
-          <select required className='input' 
-            name="hydraulics" 
-            // value={inputs.hydraulics || ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.hydraulics === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
+                >
+                  BACK
+                </Link>
+                <button
+                  type="submit"
+                  className="inline-flex items-center rounded-md border dark:border-slate-700 bg-green-700 hover:bg-green-600 px-4 py-2
+                   text-sm font-bold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:right-offset-green-700"
+                >
+                  SUBMIT
+                </button>
+              </div>
 
-        <div className="input-group">
-          <label className='info' htmlFor='overhead_guard'>Overhead Guard:</label>
-          <select required className='input' 
-            name="overhead_guard" 
-            // value={inputs.overhead_guard || ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.overhead_guard === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-        
-        <div className="input-group">
-          <label className='info' htmlFor='charger'>Charger:</label>
-          <select required className='input' 
-            name="charger" 
-            // value={inputs.charger|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.charger === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-      </div>
-
-      <div className="col-3">
-        <div className="input-group">
-          <label className='info' htmlFor='fall_arrest'>Seat Belt / Fall Arrest:</label>
-          <select required className='input' 
-            name="fall_arrest" 
-            // value={inputs.fall_arrest|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} 
-                  value={option.value} 
-                  selected={inputs.fall_arrest === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-
-        <div className="input-group">
-          <label className='info' htmlFor='is_load_plate_displayed'>Is load plate displayed / free from damage?:</label>
-          <select required className='input' 
-            name="is_load_plate_displayed" 
-            // value={inputs.is_load_plate_displayed|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} 
-                  value={option.value} 
-                  selected={inputs.is_load_plate_displayed === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-        
-        <div className="input-group">
-          <label className='info' htmlFor='is_operators_manual_present'>Is the operators manual present?:</label>
-          <select required className='input' 
-            name="is_operators_manual_present" 
-            // value={inputs.is_operators_manual_present|| ""} 
-            onChange={handleChange}
-          >
-            {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.is_operators_manual_present === option.value}>{option.label}</option>
-              )
-            })}
-          </select>
-        </div>
-      </div>
-
-      <div className="col">
-        <div className="input-group">
-            <label className='info' htmlFor='is_forklift_clean'>Is the forklift clean, free of trash, excess oil and grease?:</label>
-            <select required className='input' 
-              name="is_forklift_clean" 
-              // value={inputs.is_forklift_clean|| ""} 
-              onChange={handleChange}
-            >
-              {passAndFail.map((option, index) => {
-              return(
-                <option key={index} value={option.value} selected={inputs.is_forklift_clean === option.value}>{option.label}</option>
-              )
-            })}
-            </select>
+            </div>
           </div>
-      </div>
-
-      <div className="col">
-        <div className="input-group">
-            <label className='info' htmlFor='deficiencies_present'>If any deficiencies are present, describe below:</label>
-            <input className='input'
-            type="text" 
-            name="deficiencies_present" 
-            value={inputs.deficiencies_present ? inputs.deficiencies_present : '' } 
-            onChange={handleChange}
-          />
-          </div>
-      </div>
-  
-      <div className='actions'>
-        <Link to="/inspections" className='button'>BACK</Link>
-        <button className='button' type='submit'>SUBMIT</button>
-      </div>
-    </form>
-  )
+        </div>
+      </form>
+    </div>
+  );
 }
 
-export default InspectForm
+export default InspectForm;
