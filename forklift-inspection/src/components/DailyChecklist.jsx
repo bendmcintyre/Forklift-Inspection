@@ -1,3 +1,6 @@
+import {
+  React,
+} from 'react';
 /*
  * TODO: replace this component with tailwind definitions
  *
@@ -10,7 +13,7 @@ function DailyChecklist() {
     const [message, setMessage] = useState("");
 
     const API_URL = "https://forklift-inspection-backend.vercel.app";
-    
+
     // Fetch all checklist records
     const getData = async () => {
         document.title = "Daily Checklist"
@@ -18,7 +21,7 @@ function DailyChecklist() {
         const rawResponse = await fetch(API_URL + "/daily_checklist")
         const response = await rawResponse.json()
 
-        if(response.count !== 0){    
+        if(response.count !== 0){
             setData(response.data)
         }
     }
@@ -26,7 +29,7 @@ function DailyChecklist() {
     const refreshData = () => {
         getData()
     }
-    
+
     useEffect(() => {
         getData()
     }, [])
@@ -63,11 +66,11 @@ function DailyChecklist() {
                     <td>{el.supervised_by}</td>
                     <td>
                         <div className="d-flex">
-                            <Link to={`/daily-checklist/${el._id}`} 
+                            <Link to={`/daily-checklist/${el._id}`}
                                 className="btn btn-primary btn-sm me-2">Edit</Link>
-                            <Button variant="danger" 
-                                size="sm" 
-                                className="fw-semibold" 
+                            <Button variant="danger"
+                                size="sm"
+                                className="fw-semibold"
                                 onClick={() => removeData(el._id)}>Remove</Button>
                         </div>
                     </td>
@@ -86,7 +89,7 @@ function DailyChecklist() {
                 <h1>Daily Checklist</h1>
                 <div>
                     <Button variant="outline-primary" className="me-2" onClick={refreshData}>Refresh</Button>
-                    <Link to="/daily-checklist/new" className="btn btn-primary">Add new inspection</Link> 
+                    <Link to="/daily-checklist/new" className="btn btn-primary">Add new inspection</Link>
                 </div>
             </div>
             <Table striped bordered hover>
@@ -114,9 +117,9 @@ function DailyChecklist() {
 }
 */
 
-const DailyChecklist = function() {
+const DailyChecklist = function () {
   return (
-    <div></div>
+    <div />
   );
 };
-export default DailyChecklist
+export default DailyChecklist;

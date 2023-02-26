@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect,
+} from 'react';
 
 export default function Reminder() {
   const [reminders, setReminders] = useState([]);
@@ -77,7 +79,11 @@ export default function Reminder() {
       <ul className="reminder-list">
         {reminders.map((reminder, index) => (
           <li key={index}>
-            {reminder.text} ({reminder.time})
+            {reminder.text}
+            {' '}
+            (
+            {reminder.time}
+            )
             <button className="reminder-remove" onClick={() => removeReminder(index)}>Remove</button>
             <button className="reminder-edit" onClick={() => editReminder(index)}>Edit</button>
           </li>
