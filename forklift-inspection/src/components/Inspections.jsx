@@ -45,8 +45,11 @@ export default function Inspections() {
     });
   };
 
+  // TODO: Determine the 'proper' way to handle loading data without violating
+  //       the associated ESLint Rule
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const removeData = async (id) => {

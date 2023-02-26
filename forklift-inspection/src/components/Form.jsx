@@ -119,9 +119,11 @@ function InspectForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const hasIdProperty = Object.prototype.hasOwnProperty.call(inputs, '_id');
+
     let route = '';
     let method = '';
-    if (inputs.hasOwnProperty('_id')) { // got this from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
+    if (hasIdProperty) {
       route = `/inspections/${inputs._id}`;
       method = 'PUT';
     } else {
@@ -170,8 +172,11 @@ function InspectForm() {
     return [d.getFullYear(), month, day].join('-');
   };
 
+  // TODO: Determine the 'proper' way to handle loading data without violating
+  //       the associated ESLint Rule
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TODO: Make an actual Loader component lol

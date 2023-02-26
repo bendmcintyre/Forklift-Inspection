@@ -1,4 +1,12 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable */
+//
+// NOTE: Disabled ESLint for this file until reminders are server-side
+//
+import {
+  useState,
+  useEffect,
+  React,
+} from 'react';
 
 export default function Reminder() {
   const [reminders, setReminders] = useState([]);
@@ -77,7 +85,11 @@ export default function Reminder() {
       <ul className="reminder-list">
         {reminders.map((reminder, index) => (
           <li key={index}>
-            {reminder.text} ({reminder.time})
+            {reminder.text}
+            {' '}
+            (
+            {reminder.time}
+            )
             <button className="reminder-remove" onClick={() => removeReminder(index)}>Remove</button>
             <button className="reminder-edit" onClick={() => editReminder(index)}>Edit</button>
           </li>
