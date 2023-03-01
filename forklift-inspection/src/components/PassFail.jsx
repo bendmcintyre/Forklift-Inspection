@@ -1,12 +1,15 @@
-import { useState } from "react";
+import {
+  useState,
+  React,
+} from 'react';
 
 function PassFail() {
-  const [ myTest, setMyTest] = useState("Pass");
+  const [myTest, setMyTest] = useState('Pass');
 
   const handleChange = (event) => {
-    setMyTest(event.target.value)
-    console.log(event.target.value)
-  }
+    setMyTest(event.target.value);
+    console.log(event.target.value);
+  };
 
   return (
     <form>
@@ -16,9 +19,7 @@ function PassFail() {
         <option value="NA">N/A</option>
       </select>
     </form>
-  )
+  );
 }
 
 export default PassFail;
-
-              
