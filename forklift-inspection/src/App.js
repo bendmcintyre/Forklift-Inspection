@@ -14,6 +14,7 @@ import Reminders from './components/Reminders';
 import Contact from './components/Contact';
 import InspectForm from './components/Form';
 import Inspections from './components/Inspections';
+import IndexPage from './pages/IndexPage';
 import {
   InspectionsProvider,
 } from './contexts/InspectionsContext';
@@ -27,6 +28,7 @@ function App() {
         {/* Component that'll match the routes name will be rendered here */}
         <div className="container mx-auto max-w-7xl">
           <Routes>
+            <Route path="/" element={<IndexPage />} />
             <Route path="/inspections" element={<Inspections />} />
             <Route path="/reminders" element={<Reminders />} />
             <Route path="/contact" element={<Contact />} />
