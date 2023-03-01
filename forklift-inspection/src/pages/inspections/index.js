@@ -2,8 +2,12 @@ import {
   React,
 } from 'react';
 
+import InspectionsList from '../components/InspectionsList';
+
 export default function InspectionsPage() {
   return (
-    <h1>Hello inspections!</h1>
+    <div className="container mx-auto">
+      <InspectionsList />
+    </div>
   );
 }
