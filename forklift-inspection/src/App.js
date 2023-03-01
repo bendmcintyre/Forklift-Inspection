@@ -13,8 +13,8 @@ import TopBar from './components/TopBar';
 import Reminders from './components/Reminders';
 import Contact from './components/Contact';
 import InspectForm from './components/Form';
-import Inspections from './components/Inspections';
 import IndexPage from './pages/IndexPage';
+import InspectionsPage from './pages/InspectionsPage';
 import {
   InspectionsProvider,
 } from './contexts/InspectionsContext';
@@ -29,7 +29,7 @@ function App() {
         <div className="container mx-auto max-w-7xl">
           <Routes>
             <Route path="/" element={<IndexPage />} />
-            <Route path="/inspections" element={<Inspections />} />
+            <Route path="/inspections" element={<InspectionsPage />} />
             <Route path="/reminders" element={<Reminders />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/inspect-form" element={<InspectForm />} />
