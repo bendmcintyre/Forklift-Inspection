@@ -10,9 +10,9 @@ import {
 import './App.css';
 
 import TopBar from './components/TopBar';
-import Contact from './components/Contact';
 import InspectForm from './components/Form';
 import IndexPage from './pages/IndexPage';
+import ContactPage from './pages/ContactPage';
 import InspectionsPage from './pages/InspectionsPage';
 import RemindersPage from './pages/RemindersPage';
 import {
@@ -31,7 +31,7 @@ function App() {
             <Route path="/" element={<IndexPage />} />
             <Route path="/inspections" element={<InspectionsPage />} />
             <Route path="/reminders" element={<RemindersPage />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/inspect-form" element={<InspectForm />} />
           </Routes>
         </div>
