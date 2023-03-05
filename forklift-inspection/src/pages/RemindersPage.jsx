@@ -2,8 +2,12 @@ import {
   React,
 } from 'react';
 
+import Reminders from '../components/Reminders';
+
 export default function RemindersPage() {
   return (
-    <h1>Hello Reminders</h1>
+    <div className="container mx-auto">
+      <Reminders />
+    </div>
   );
 }
