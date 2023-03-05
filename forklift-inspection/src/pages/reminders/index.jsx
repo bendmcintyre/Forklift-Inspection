@@ -2,7 +2,7 @@ import {
   React,
 } from 'react';
 
-import Reminders from '../components/Reminders';
+import Reminders from '../../components/Reminders';
 
 export default function RemindersPage() {
   return (
