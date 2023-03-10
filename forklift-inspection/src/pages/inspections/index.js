@@ -2,7 +2,7 @@ import {
   React,
 } from 'react';
 
-import InspectionsList from '../components/InspectionsList';
+import InspectionsList from '../../components/InspectionsList';
 
 export default function InspectionsPage() {
   return (
