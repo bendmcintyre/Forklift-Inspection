@@ -11,6 +11,13 @@ module.exports = {
   ],
   overrides: [
   ],
+  settings: {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      },
+    },
+  },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
