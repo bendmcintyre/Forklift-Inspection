@@ -29,7 +29,7 @@ function TH({ extraClassName, children }) {
   );
 }
 
-export default function Inspections() {
+export default function InspectionsList() {
   const inspectionsDispatch = useInspectionsDispatch();
   const inspections = useInspections();
 
