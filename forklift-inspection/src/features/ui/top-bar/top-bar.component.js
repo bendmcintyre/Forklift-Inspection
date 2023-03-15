@@ -1,11 +1,5 @@
-import {
-  Fragment,
-  React,
-} from 'react';
-import {
-  Link,
-  // useLocation,
-} from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Disclosure,
   Menu,
@@ -17,9 +11,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
-import {
-  PlusIcon,
-} from '@heroicons/react/24/solid';
+import { PlusIcon } from '@heroicons/react/24/solid';
 
 const navigation = [
   { name: 'Inspections', href: '/inspections', current: true },
@@ -32,7 +24,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function TopBar() {
+export function TopBar() {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -114,7 +106,7 @@ export default function TopBar() {
                     </Menu.Button>
                   </div>
                   <Transition
-                    as={Fragment}
+                    as={React.Fragment}
                     enter="transition ease-out duration-100"
                     enterFrom="transform opacity-0 scale-95"
                     enterTo="transform opacity-100 scale-100"
@@ -194,3 +186,5 @@ export default function TopBar() {
     </Disclosure>
   );
 }
+
+export default TopBar;

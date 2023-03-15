@@ -1,8 +1,6 @@
-import {
-  React,
-} from 'react';
+import React from 'react';
 
-import Reminders from '../../components/Reminders';
+import Reminders from 'features/reminders';
 
 export default function RemindersPage() {
   return (

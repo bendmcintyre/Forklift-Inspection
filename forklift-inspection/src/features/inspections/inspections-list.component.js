@@ -1,23 +1,15 @@
-import {
-  React,
-  useEffect,
-} from 'react';
+import React from 'react';
 
-import {
-  Link,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import {
   PencilIcon,
   TrashIcon,
 } from '@heroicons/react/20/solid';
 
-import {
-  useInspections,
-  useInspectionsDispatch,
-} from '../contexts/InspectionsContext';
+import { useInspections } from './inspections.context';
 
-import * as Api from '../Api';
+import { deleteInspection } from './inspections.api';
 
 function TH({ extraClassName, children }) {
   const thStyles = 'border border-slate-300 dark:border-slate-600 p-4 text-slate-900 dark:text-slate-200';
@@ -29,31 +21,10 @@ function TH({ extraClassName, children }) {
   );
 }
 
-export default function InspectionsList() {
-  const inspectionsDispatch = useInspectionsDispatch();
+export function InspectionsList() {
   const inspections = useInspections();
-
-  const loadData = async () => {
-    document.title = 'Inspections';
-
-    const apiResponse = await Api.getInspections();
-    console.log(apiResponse);
-
-    inspectionsDispatch({
-      type: 'FETCH_INSPECTIONS_SUCCESS',
-      inspections: apiResponse.data,
-    });
-  };
-
-  // TODO: Determine the 'proper' way to handle loading data without violating
-  //       the associated ESLint Rule
-  useEffect(() => {
-    loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const removeData = async (id) => {
-    const apiResponse = await Api.deleteInspection(id);
+    const apiResponse = await deleteInspection(id);
     console.log(apiResponse);
 
     // alert(apiResponse.message);
@@ -121,3 +92,5 @@ export default function InspectionsList() {
     </div>
   );
 }
+
+export default InspectionsList;
