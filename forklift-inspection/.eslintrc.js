@@ -29,7 +29,7 @@ module.exports = {
     'max-len': ['warn'],
     'quote-props': ['error', 'consistent'],
     'object-curly-newline': ['error', {
-      ImportDeclaration: 'always',
+      'ImportDeclaration': { 'multiline': true, 'minProperties': 2 }
     }],
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',
