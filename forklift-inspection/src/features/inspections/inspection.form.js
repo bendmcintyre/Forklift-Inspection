@@ -1,25 +1,25 @@
-import {
-  React,
+import React, {
   useState,
   useEffect,
 } from 'react';
+
 import {
   useNavigate,
   useLocation,
   Link,
 } from 'react-router-dom';
+
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/solid';
+
 import {
   CheckCircleIcon as CheckCircleOutlineIcon,
   ExclamationCircleIcon as ExclamationCircleOutlineIcon,
 } from '@heroicons/react/24/outline';
-import {
-  RadioGroup,
-} from '@headlessui/react';
-import '../App.css';
+
+import { RadioGroup } from '@headlessui/react';
 
 // TODO: Migrate this to a 'utils' component
 const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
@@ -101,7 +101,7 @@ function passFailFor(value) {
 }
 
 // TOODO: Move state management to reducer and dispatch/consume events
-function InspectForm() {
+export function InspectionForm() {
   const location = useLocation(); // got this from https://reactrouter.com/en/main/hooks/use-location
 
   const [isLoading, setIsLoading] = useState(true); // remote data not yet fetched
@@ -269,4 +269,4 @@ function InspectForm() {
   );
 }
 
-export default InspectForm;
+export default InspectionForm;

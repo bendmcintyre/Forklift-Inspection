@@ -1,7 +1,6 @@
-import {
-  React,
-} from 'react';
-import forkliftLogo from '../images/forklift-logo.png';
+import React from 'react';
+
+import forkliftLogo from 'assets/images/forklift-logo.png';
 
 export default function Contact() {
   return (

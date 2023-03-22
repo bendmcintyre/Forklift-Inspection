@@ -1,40 +1,63 @@
+import React from 'react';
 import {
-  React,
-} from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
+  createBrowserRouter,
+  RouterProvider,
 } from 'react-router-dom'; // this is for routing purposes
 
 import './App.css';
 
-import TopBar from './components/TopBar';
-import Reminders from './components/Reminders';
-import Contact from './components/Contact';
-import InspectForm from './components/Form';
-import Inspections from './components/Inspections';
-import {
-  InspectionsProvider,
-} from './contexts/InspectionsContext';
+import { Layout } from 'features/ui';
+import ContactPage from 'pages/contact';
+import HomePage from 'pages/home';
+import InspectionsPage from 'pages/inspections';
+import RemindersPage from 'pages/reminders';
+import ErrorPage from 'pages/error';
+
+import { InspectionForm } from 'features/inspections';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: '/inspections',
+        children: [
+          {
+            index: true,
+            element: <InspectionsPage />,
+          },
+        ],
+      },
+      {
+        path: '/reminders',
+        element: <RemindersPage />,
+      },
+      {
+        path: '/contact',
+        element: <ContactPage />,
+      },
+      // Refactor this to 'inspections/new'
+      {
+        path: '/inspect-form',
+        element: <InspectionForm />,
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-    <InspectionsProvider>
-      <Router>
-        <TopBar />
-
-        {/* Component that'll match the routes name will be rendered here */}
-        <div className="container mx-auto max-w-7xl">
-          <Routes>
-            <Route path="/inspections" element={<Inspections />} />
-            <Route path="/reminders" element={<Reminders />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/inspect-form" element={<InspectForm />} />
-          </Routes>
-        </div>
-      </Router>
-    </InspectionsProvider>
+    <RouterProvider router={router} />
   );
 }
 

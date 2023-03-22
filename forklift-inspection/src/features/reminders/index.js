@@ -1,5 +1,6 @@
 /* eslint-disable */
 //
+// TODO: Split this into multiple components within a 'reminders' directory
 // NOTE: Disabled ESLint for this file until reminders are server-side
 //
 import {
@@ -8,7 +9,7 @@ import {
   React,
 } from 'react';
 
-export default function Reminder() {
+export default function Reminders() {
   const [reminders, setReminders] = useState([]);
   const [alertText, setAlertText] = useState('');
 
