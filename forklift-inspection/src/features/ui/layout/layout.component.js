@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { AuthProvider } from 'features/authentication';
 import { InspectionsProvider } from 'features/inspections';
 import { TopBar } from 'features/ui';
 
@@ -10,13 +11,15 @@ import { TopBar } from 'features/ui';
 //
 export function Layout() {
   return (
-    <InspectionsProvider>
-      <TopBar />
+    <AuthProvider>
+      <InspectionsProvider>
+        <TopBar />
 
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <Outlet />
-      </div>
-    </InspectionsProvider>
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <Outlet />
+        </div>
+      </InspectionsProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {
+  Link,
+  useLocation,
+} from 'react-router-dom';
 import {
   Disclosure,
   Menu,
@@ -13,18 +16,54 @@ import {
 
 import { PlusIcon } from '@heroicons/react/24/solid';
 
-const navigation = [
-  { name: 'Inspections', href: '/inspections', current: true },
-  { name: 'Reminders', href: '/reminders', current: false },
-  // { name: 'Calendar', href: '/calendar', current: false },
-  { name: 'Contact', href: '/contact', current: false },
-];
+import { useAuth } from 'features/authentication';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+function isCurrentPage(myLocation, path) {
+  return myLocation.pathname === path;
+}
+
+function capitalizeString(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// { name: 'Contact', href: '/contact', current: false },
+function buildNavItem(myLocation, path) {
+  return {
+    name: capitalizeString(path.split('/')[1]),
+    href: path,
+    current: isCurrentPage(myLocation, path),
+  };
+}
+
 export function TopBar() {
+  const auth = useAuth();
+  const myLocation = useLocation();
+
+  // TODO: Migrate this into a component?
+  const publicNav = [
+    buildNavItem(myLocation, '/contact'),
+  ];
+
+  const authNav = auth.user ? [] : [
+    buildNavItem(myLocation, '/login'),
+  ];
+
+  const privateNav = !auth.user ? [] : [
+    buildNavItem(myLocation, '/inspections'),
+    buildNavItem(myLocation, '/reminders'),
+    // buildNavItem(myLocation, '/calender'),
+  ];
+
+  const navigation = [
+    ...privateNav,
+    ...publicNav,
+    ...authNav,
+  ];
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -44,16 +83,21 @@ export function TopBar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
+                  <Link
+                    key="home"
+                    to="/"
+                  >
+                    <img
+                      className="block h-8 w-auto lg:hidden"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      alt="Your Company"
+                    />
+                    <img
+                      className="hidden h-8 w-auto lg:block"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      alt="Your Company"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
@@ -75,6 +119,12 @@ export function TopBar() {
                   </div>
                 </div>
               </div>
+              {
+                //
+                // Hide the profile menu unless a user object exists
+                //
+              }
+              { auth.user && (
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <Link
                   as="button"
@@ -143,21 +193,23 @@ export function TopBar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="/"
+                          <Link
+                            as="a"
+                            to="/logout"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700',
                             )}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
               </div>
+              )}
             </div>
           </div>
 

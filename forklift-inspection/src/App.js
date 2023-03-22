@@ -12,8 +12,11 @@ import HomePage from 'pages/home';
 import InspectionsPage from 'pages/inspections';
 import RemindersPage from 'pages/reminders';
 import ErrorPage from 'pages/error';
+import LoginPage from 'pages/login';
+import LogoutPage from 'pages/logout';
 
 import { InspectionForm } from 'features/inspections';
+import { RequireAuth } from 'features/authentication';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +29,16 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: '/login',
+        element: <LoginPage />,
+      },
+      {
+        path: '/logout',
+        element: <LogoutPage />,
+      },
+      {
         path: '/inspections',
+        element: <RequireAuth />,
         children: [
           {
             index: true,
