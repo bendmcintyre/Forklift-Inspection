@@ -1,64 +1,46 @@
-import {
-  React,
+import React, {
 } from 'react';
-import forkliftLogo from '../images/forklift-logo.png';
+import { FaEnvelope } from 'react-icons/fa';
+import styles from '../styles/Contact.module.scss';
 
-export default function Contact() {
+function Contact() {
   return (
-    <div>
-      <div id="contact-div">
-        <img id="forklift-logo" src={forkliftLogo} alt="Forklift logo" />
+    <div className={styles.container}>
+      <div>
+        <form>
+          <div className={styles['form-item']}>
+            <label htmlFor="name" className={styles['form-label']}>Name:</label>
+            <br />
+            <input className={styles['form-text']} type="text" id="name" name="name" required maxLength="40" pattern="[A-Za-z ]+" />
+          </div>
+          <div className={styles['form-item']}>
+            <label htmlFor="email" className={styles['form-label']}>Email:</label>
+            <br />
+            <input className={styles['form-text']} type="email" id="email" name="email" required />
+          </div>
+          <div className={styles['form-item']}>
+            <label htmlFor="subject" className={styles['form-label']}>Subject:</label>
+            <br />
+            <input className={styles['form-text']} type="text" id="subject" name="subject" required maxLength="50" />
+          </div>
+          <div className={styles['form-item']}>
+            <label htmlFor="message" className={styles['form-label']}>Message:</label>
+            <br />
+            <textarea className={styles['message-input-box']} id="message" name="message" required maxLength="500" />
+          </div>
+          <div>
+            <button type="submit" className={styles['submit-button']}>Submit</button>
+          </div>
+        </form>
       </div>
-      <div id="contact-info">
-        <a
-          className="contact-info"
-          id="contact-email"
-          href="mailto:certifiedForkliftPros@gmail.com"
-        >
-          CertifiedForkliftPros@gmail.com
+      <div className={styles['contact-info']}>
+        <a href="mailto:bendmcintyre@gmail.com" className={styles['contact-link']}>
+          <FaEnvelope className={styles['contact-icon']} />
+          name@gmail.com
         </a>
-        <br />
-        <a
-          className="contact-info"
-          id="contact-number"
-          href="tel:1234567890"
-        >
-          (123) 456-7890
-        </a>
-      </div>
-      <div id="social-media-butttons">
-        <nav>
-          <a
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noopener noreferrer" /* based on react's suggestion */
-            id="instagram"
-            className="contact-info instagram"
-          >
-            Instagram
-          </a>
-          <br />
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            id="twitter"
-            rel="noopener noreferrer" /* based on react's suggestion */
-            className="contact-info twitter"
-          >
-            Twitter
-          </a>
-          <br />
-          <a
-            href="https://www.linkedin.com"
-            target="_blank"
-            id="linked-in"
-            rel="noopener noreferrer" /* based on react's suggestion */
-            className="contact-info linked-in"
-          >
-            LinkedIn
-          </a>
-        </nav>
       </div>
     </div>
   );
 }
+
+export default Contact;

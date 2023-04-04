@@ -16,9 +16,7 @@ import {
   CheckCircleIcon as CheckCircleOutlineIcon,
   ExclamationCircleIcon as ExclamationCircleOutlineIcon,
 } from '@heroicons/react/24/outline';
-import {
-  RadioGroup,
-} from '@headlessui/react';
+import { RadioGroup } from '@headlessui/react';
 import '../App.css';
 
 // TODO: Migrate this to a 'utils' component

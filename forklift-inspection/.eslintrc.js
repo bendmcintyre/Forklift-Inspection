@@ -35,5 +35,9 @@ module.exports = {
     'react/prop-types': 'off',
     // TODO: Enable this once id columns are safely renamed
     'no-underscore-dangle': 'off',
+    "jsx-a11y/label-has-associated-control": [ "error", {
+      "labelAttributes": ["htmlFor"],
+      "controlComponents": ["input", "textarea"],
+    }]
   },
 };
