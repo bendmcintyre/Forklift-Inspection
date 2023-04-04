@@ -1,0 +1,122 @@
+@import './_common.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  height: 100%;
+  padding: 2rem;
+
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .form-label {
+    font-size: 2rem;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 1.5rem;
+  }
+
+  .form-text {
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin-right: 3.5rem;
+    margin-left: 3.5rem;
+    font-size: 1.2rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    color: black;
+    resize: none;
+
+    &:focus {
+      outline: none;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+.message-input-box {
+    border: none;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    color: black;
+    resize: none;
+    height: calc(7 * 1.2rem + 2 * 1rem);
+
+    &:focus {
+      outline: none;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+.contact-info {
+  display: flex;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+  font-size: 1.25rem;
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #61dafb;
+    transform: scale(1.05);
+  }
+}
+
+.contact-link:hover .contact-icon {
+  color: #61dafb;
+}
+
+.contact-icon {
+  margin-right: 1rem;
+  font-size: 2rem;
+  fill: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.contact-link:hover .contact-icon {
+  fill: #61dafb;
+}
+
+
+.submit-button {
+  background-color: white;
+  color: #008912;
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 3rem;
+
+  &:hover {
+    color: white;
+    background-color: #61dafb;
+  }
+}

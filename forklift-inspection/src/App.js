@@ -1,6 +1,4 @@
-import {
-  React,
-} from 'react';
+import { React } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,9 +12,7 @@ import Reminders from './components/Reminders';
 import Contact from './components/Contact';
 import InspectForm from './components/Form';
 import Inspections from './components/Inspections';
-import {
-  InspectionsProvider,
-} from './contexts/InspectionsContext';
+import { InspectionsProvider } from './contexts/InspectionsContext';
 
 function App() {
   return (

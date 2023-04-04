@@ -17,9 +17,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 
-import {
-  PlusIcon,
-} from '@heroicons/react/24/solid';
+import { PlusIcon } from '@heroicons/react/24/solid';
 
 const navigation = [
   { name: 'Inspections', href: '/inspections', current: true },
