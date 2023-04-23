@@ -8,60 +8,33 @@ import {
   useLocation,
   Link,
 } from 'react-router-dom';
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-} from '@heroicons/react/24/solid';
-import {
-  CheckCircleIcon as CheckCircleOutlineIcon,
-  ExclamationCircleIcon as ExclamationCircleOutlineIcon,
-} from '@heroicons/react/24/outline';
 import { RadioGroup } from '@headlessui/react';
-import '../App.css';
+import classes from '../styles/Form.module.scss';
 
 // TODO: Migrate this to a 'utils' component
-const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-function PassFailRadioGroup({ name, defaultValue }) {
+function PassFailRadioGroup({ name, id }) {
+  const [selectedValue, setSelectedValue] = useState(null);
+
   return (
-    <div className="col-span-12 sm:col-span-6 text-xl sm:text-md text-gray-700 font-medium">
-      <RadioGroup name={name} defaultValue={defaultValue}>
-        <RadioGroup.Label className="block text-base text-gray-200">
-          {capitalizeFirstLetter(name)}
-        </RadioGroup.Label>
-
-        <div className="flex gap-6">
+    <div className={classes.passFailRadioGroupContainer}>
+      <RadioGroup onChange={(value) => setSelectedValue(value)}>
+        <div className={classes.radioGroupContainer}>
           <RadioGroup.Option
             value="fail"
-            className="flex items-center rounded-md h-20 w-full
-                       px-4 py-2
-                       bg-white
-                       shadow-md
-                       ui-not-checked:border-none
-                       ui-checked:border-2
-                       ui-checked:border-red-700
-                       focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-1
-                       focus:right-offset-gray-200"
+            className={`${classes.radioOption} ${selectedValue === 'fail' ? classes.radioOptionSelected : ''}`}
+            id={`${id}-fail`}
+            name={name}
           >
-            <ExclamationCircleIcon className="hidden h-14 w-14 ui-checked:block fill-red-700" />
-            <ExclamationCircleOutlineIcon className="hidden h-14 w-14 ui-not-checked:block stroke-red-700" />
-            Fail
+            FAIL
           </RadioGroup.Option>
           <RadioGroup.Option
             value="pass"
-            className="flex items-center rounded-md h-20 w-full
-                       px-4 py-2
-                       bg-white
-                       shadow-md
-                       ui-not-checked:border-none
-                       ui-checked:border-2
-                       ui-checked:border-green-700
-                       focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-1
-                       focus:right-offset-gray-200"
+            className={`${classes.radioOption} ${selectedValue === 'pass' ? classes.radioOptionSelected : ''}`}
+            id={`${id}-pass`}
+            name={name}
           >
-            <CheckCircleIcon className="hidden h-14 w-14 ui-checked:block fill-green-800" />
-            <CheckCircleOutlineIcon className="hidden h-14 w-14 ui-not-checked:block stroke-green-800" />
-            Pass
+            PASS
           </RadioGroup.Option>
         </div>
       </RadioGroup>
@@ -72,10 +45,7 @@ function PassFailRadioGroup({ name, defaultValue }) {
 function InputWithLabel({ name, value, onChange = '', autoComplete = '', type = 'text' }) {
   return (
     <div className="col-span-6 sm:col-span-3">
-      <label htmlFor={name} className="block text-md font-medium text-gray-200">
-        {capitalizeFirstLetter(name)}
-      </label>
-
+      <label htmlFor={name} />
       <input
         required
         type={type}
@@ -84,7 +54,7 @@ function InputWithLabel({ name, value, onChange = '', autoComplete = '', type = 
         autoComplete={autoComplete}
         onChange={onChange}
         value={value}
-        className="mt-1 block w-full rounded-md border-gray-300 text-slate-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        className={classes.inputWithLabel}
       />
     </div>
   );
@@ -179,87 +149,111 @@ function InspectForm() {
 
   // TODO: Make an actual Loader component lol
   return isLoading ? (
-    <div className="container mx-auto">
+    <div>
       Spinner...
     </div>
   ) : (
     <div className="container mx-auto">
       <form id="inspection" onSubmit={handleSubmit} action="#" method="POST">
-        <div className="overflow-hidden shadow sm:rounded-md">
-          <div className="px-4 py-5 sm:p-6">
-            <div className="grid grid-cols-6 gap-6">
+        <div className="px-4 py-5 sm:p-6">
+          <div className="grid grid-cols-6 gap-6">
 
+            <div className="col-span-12 sm:col-span-6">
+              <label className={classes.inputWithLabelText} htmlFor="name">Name</label>
               <InputWithLabel
                 name="name"
                 onChange={handleChange}
                 value={inputs.name ? inputs.name : ''}
                 autoComplete="given-name"
               />
-
+              <label className={classes.inputWithLabelText} htmlFor="date">Date</label>
               <InputWithLabel
                 name="date"
                 type="date"
                 onChange={handleChange}
                 value={inputs.date ? fixDateFormat(inputs.date) : ''}
               />
-
+              <label className={classes.inputWithLabelText} htmlFor="lift">Lift</label>
               <InputWithLabel
                 type="text"
                 name="lift"
                 onChange={handleChange}
                 value={inputs.lift ? inputs.lift : ''}
               />
-
+              <label className={classes.inputWithLabelText} htmlFor="hours">Hours</label>
               <InputWithLabel
                 type="number"
                 name="hours"
                 onChange={handleChange}
                 value={inputs.hours ? inputs.hours : ''}
               />
-
-              <PassFailRadioGroup name="tires" defaultValue={passFailFor(inputs.tires)} />
-              <PassFailRadioGroup name="horn" defaultValue={passFailFor(inputs.horn)} />
-              <PassFailRadioGroup name="battery" defaultValue={passFailFor(inputs.battery)} />
-              <PassFailRadioGroup name="controls" defaultValue={passFailFor(inputs.controls)} />
-              <PassFailRadioGroup name="brakes" defaultValue={passFailFor(inputs.brakes)} />
-              <PassFailRadioGroup name="steering" defaultValue={passFailFor(inputs.steering)} />
-              <PassFailRadioGroup name="hydraulics" defaultValue={passFailFor(inputs.hydraulics)} />
-              <PassFailRadioGroup name="overhead_guard" defaultValue={passFailFor(inputs.overhead_guard)} />
-              <PassFailRadioGroup name="charger" defaultValue={passFailFor(inputs.overhead_guard)} />
-              <PassFailRadioGroup name="fall_arrest" defaultValue={passFailFor(inputs.overhead_guard)} />
-              <PassFailRadioGroup name="is_load_plate_displayed" defaultValue={passFailFor(inputs.overhead_guard)} />
-              <PassFailRadioGroup name="is_operators_manual_present" defaultValue={passFailFor(inputs.overhead_guard)} />
-              <PassFailRadioGroup name="is_forklift_clean" defaultValue={passFailFor(inputs.overhead_guard)} />
-
-              <div className="col-span-12 sm:col-span-6">
-                <InputWithLabel
-                  type="text"
-                  name="deficiencies_present"
-                  onChange={handleChange}
-                  value={inputs.deficiencies_present ? inputs.deficiencies_present : ''}
-                  className="col-span-12"
-                />
-              </div>
-
-              <div className="col-span-12 sm:col-span-6 flex items-center justify-center gap-6">
-                <Link
-                  to="/inspections"
-                  className="inline-flex items-center rounded-md border dark:border-slate-700 bg-gray-700 hover:bg-gray-600 px-4 py-2
-                   text-sm font-bold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:right-offset-green-700"
-
-                >
-                  BACK
-                </Link>
-                <button
-                  type="submit"
-                  className="inline-flex items-center rounded-md border dark:border-slate-700 bg-green-700 hover:bg-green-600 px-4 py-2
-                   text-sm font-bold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:right-offset-green-700"
-                >
-                  SUBMIT
-                </button>
-              </div>
-
             </div>
+
+            <label className={classes.formLabel} htmlFor="tires">Tires</label>
+            <PassFailRadioGroup className={classes.formContainer} name="tires" id="tires" defaultValue={passFailFor(inputs.tires)} />
+
+            <label className={classes.formLabel} htmlFor="horn">Horn</label>
+            <PassFailRadioGroup name="horn" id="horn" defaultValue={passFailFor(inputs.horn)} />
+
+            <label className={classes.formLabel} htmlFor="battery">Battery</label>
+            <PassFailRadioGroup name="battery" id="battery" defaultValue={passFailFor(inputs.battery)} />
+
+            <label className={classes.formLabel} htmlFor="controls">Controls</label>
+            <PassFailRadioGroup name="controls" id="controls" defaultValue={passFailFor(inputs.controls)} />
+
+            <label className={classes.formLabel} htmlFor="brakes">Brakes</label>
+            <PassFailRadioGroup name="brakes" id="brakes" defaultValue={passFailFor(inputs.brakes)} />
+
+            <label className={classes.formLabel} htmlFor="steering">Steering</label>
+            <PassFailRadioGroup name="steering" id="steering" defaultValue={passFailFor(inputs.steering)} />
+
+            <label className={classes.formLabel} htmlFor="hydraulics">Hydraulics</label>
+            <PassFailRadioGroup name="hydraulics" id="hydraulics" defaultValue={passFailFor(inputs.hydraulics)} />
+
+            <label className={classes.formLabel} htmlFor="overhead_guard">Overhead Guard</label>
+            <PassFailRadioGroup name="overhead_guard" id="overhead_guard" defaultValue={passFailFor(inputs.overhead_guard)} />
+
+            <label className={classes.formLabel} htmlFor="charger">Charger</label>
+            <PassFailRadioGroup name="charger" id="charger" defaultValue={passFailFor(inputs.charger)} />
+
+            <label className={classes.formLabel} htmlFor="fall_arrest">Fall Arrest</label>
+            <PassFailRadioGroup name="fall_arrest" id="fall_arrest" defaultValue={passFailFor(inputs.fall_arrest)} />
+
+            <label className={classes.formLabel} htmlFor="is_load_plate_displayed">Is Load Plate Displayed</label>
+            <PassFailRadioGroup name="is_load_plate_displayed" id="is_load_plate_displayed" defaultValue={passFailFor(inputs.is_load_plate_displayed)} />
+
+            <label className={classes.formLabel} htmlFor="is_operators_manual_present">Is Operators Manual Present</label>
+            <PassFailRadioGroup name="is_operators_manual_present" id="is_operators_manual_present" defaultValue={passFailFor(inputs.is_operators_manual_present)} />
+
+            <label className={classes.formLabel} htmlFor="is_forklift_clean">Is Forklift Clean</label>
+            <PassFailRadioGroup name="is_forklift_clean" id="is_forklift_clean" defaultValue={passFailFor(inputs.is_forklift_clean)} />
+
+            <div className={classes.inputWithLabelContainer}>
+              <label htmlFor="is_forklift_clean">Deficiencies Present</label>
+              <InputWithLabel
+                type="text"
+                name="deficiencies_present"
+                onChange={handleChange}
+                value={inputs.deficiencies_present ? inputs.deficiencies_present : ''}
+                className={classes.inputWithLabel}
+              />
+            </div>
+
+            <div className={classes.inspectionFormButtonContainer}>
+              <Link
+                to="/inspections"
+                className={`${classes.inspectionFormButton} ${classes.inspectionFormBackButton}`}
+              >
+                BACK
+              </Link>
+              <button
+                type="submit"
+                className={`${classes.inspectionFormButton} ${classes.inspectionFormSubmitButton}`}
+              >
+                SUBMIT
+              </button>
+            </div>
+
           </div>
         </div>
       </form>

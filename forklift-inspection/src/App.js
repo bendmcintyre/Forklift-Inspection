@@ -12,6 +12,8 @@ import Reminders from './components/Reminders';
 import Contact from './components/Contact';
 import InspectForm from './components/Form';
 import Inspections from './components/Inspections';
+import Profile from './components/Profile';
+import InspectionAssignMenu from './components/InspectionAssignMenu';
 import { InspectionsProvider } from './contexts/InspectionsContext';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
             <Route path="/reminders" element={<Reminders />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/inspect-form" element={<InspectForm />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/inspectionassignmenu" element={<InspectionAssignMenu />} />
           </Routes>
         </div>
       </Router>
