@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Profile.module.scss'; // Import the new styles
+import profilePictureSrc from '../images/forklift-logo.png'; // Import the profile picture
 
 function Profile() {
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [picture, setPicture] = useState(null); // Rename to avoid conflicts
   const navigate = useNavigate();
   const [showEditPictureMenu, setShowEditPictureMenu] = useState(false);
 
@@ -11,7 +12,7 @@ function Profile() {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setProfilePicture(e.target.result);
+        setPicture(e.target.result);
         setShowEditPictureMenu(false);
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -26,7 +27,8 @@ function Profile() {
     <div className={styles.profile}>
       <h2>Profile</h2>
       <button type="button" onClick={() => setShowEditPictureMenu(!showEditPictureMenu)} className={`profile-picture ${styles.profilePicture}`} tabIndex={0}>
-        <img src={profilePicture || 'default-profile-picture.png'} alt="Profile" />
+        <img src={picture || profilePictureSrc} alt="Profile" />
+        {/* Use imported profile picture */}
         {showEditPictureMenu && (
           <div className={`edit-picture-menu ${styles.editPictureMenu}`}>
             <input type="file" id="profile-picture-input" accept="image/*" onChange={handleProfilePictureChange} />
@@ -42,3 +44,4 @@ function Profile() {
 }
 
 export default Profile;
+export { profilePictureSrc }; // Export the imported variable separately
