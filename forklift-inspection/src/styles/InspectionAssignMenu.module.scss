@@ -1,0 +1,65 @@
+@import './_common.scss';
+// Define colors and variables
+$background-color: #ffffff;
+$table-border-color: #e0e0e0;
+$hover-background-color: #f5f5f5;
+$font-color: #333333;
+$heading-font-color: #666666;
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: $background-color;
+  color: $font-color;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: $heading-font-color;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    tr {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem;
+      font-weight: 600;
+      border-bottom: 1px solid $table-border-color;
+    }
+
+    th {
+      flex: 1;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem;
+      border-bottom: 1px solid $table-border-color;
+
+      &:hover {
+        background-color: $hover-background-color;
+        cursor: pointer;
+      }
+    }
+
+    td {
+      flex: 1;
+      padding: 0.5rem 0;
+      text-align: left;
+
+      input[type="checkbox"] {
+        cursor: pointer;
+      }
+    }
+  }
+}
